@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+Pipfile.lock
+*.iml
+app/settings.py
+Pipfile.lock
