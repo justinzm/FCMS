@@ -1,0 +1,120 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<article class="page-container">
+	<form action="" class="form form-horizontal" id="form-menu-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">上级菜单：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select name="pid" class="select">
+						<option value="0">一级菜单</option>
+						{% for plist in permission_list %}
+							<option value="{{ plist.id }}"
+								{% if plist.id == find.pid %}
+									selected="selected"
+								{% endif %}
+							>
+							{% if plist.level != 1 %}|
+								{% if plist.level ==2 %}----{% else %}---- ----{% endif %}
+							{% endif %}
+							{{ plist.per_title }}
+						</option>
+						{% endfor %}
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 菜单名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="per_title" value="{{ find.per_title }}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">控制器方法：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="请输入控制器方法 如：admin/Index/index" name="_per_name" value="{{ find.per_name }}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">图标：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="（选填）如：&#xe654;" name="icon" value="{{ find.icon }}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="sort" value="{{ find.sort }}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="status" type="radio" id="status-1" value="1" {% if find.status == 1 %} checked="checked" {% endif %}>
+					<label for="status-1">启动</label>
+				</div>
+				<div class="radio-box">
+					<input name="status" type="radio" id="status-2" value="0" {% if find.status == 0 %} checked="checked" {% endif %}>
+					<label for="status-2">关闭</label>
+				</div>
+			</div>
+		</div>
+		<input name="id" type="hidden" value="{{ find.id }}">
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;编辑&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	$("#form-menu-add").validate({
+		rules:{
+			role_title:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			sort:{
+				required:true,
+				number:true,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			ajaxSubmit();
+		}
+	});
+});
+
+function ajaxSubmit(){
+	var submitData = $('#form-menu-add').serialize();
+	console.log(submitData);
+    $.post("{{ url_for('admin.auth_permission_edit') }}", submitData, function(res) {
+		if (res.status == 200) {
+			window.parent.location.reload();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.layer.close(index);
+		}else{
+			alert(res.msg);
+		}
+	}, "json");
+}
+</script>
+{% endblock %}

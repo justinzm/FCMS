@@ -1,0 +1,170 @@
+@charset "utf-8";
+/* 你自己的样式 */
+
+.refresh{
+	line-height:1.2em;
+	margin-top:3px;
+}
+
+.td-manage a{
+	text-decoration:none;
+}
+.td-istop a {
+    text-decoration: none;
+}
+
+.biaoqing {
+    position: relative;
+    display: block;
+    height: 25px;
+    width: 60px;
+    background: url(../images/face/biaoqing.png) no-repeat left center;
+}
+.biaoqing:hover ul{ display:block;}
+.biaoqing span {
+    display: block;
+    line-height: 25px;
+    text-indent: 20px;
+    cursor: pointer;
+}
+.biaoqing ul {
+    display: none;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0px 1px 3px #ccc;
+    left: -50px;
+    padding: 5px;
+    position: absolute;
+    z-index: 999;
+    top: -220px;
+    width: 450px;
+}
+.biaoqing ul li {
+    border: 1px solid #dfe6f6;
+    height: 24px;
+    width: 24px;
+    display: block;
+    padding: 2px;
+    float: left;
+    cursor: pointer;
+}
+.biaoqing ul li:hover{ 
+	border: 1px solid #336699;
+}
+#Hfcontent{
+	height:150px;
+}
+
+
+/*翻页css*/
+.page div{
+    float: right;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.page div a{
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none;
+    color: #666;
+    height: 26px;
+    line-height: 26px;
+    text-decoration: none;
+    margin: 0 0 6px 6px;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.page div .current{
+    border: 1px solid #5a98de;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none;
+    color: #666;
+    height: 26px;
+    line-height: 26px;
+    text-decoration: none;
+    margin: 0 0 6px 6px;
+    padding: 0 10px;
+    font-size: 14px;
+    background: #5a98de;
+    color: #fff;
+}
+
+.page div .num{
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none;
+    color: #666;
+    height: 26px;
+    line-height: 26px;
+    text-decoration: none;
+    margin: 0 0 6px 6px;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+
+
+
+.thumbnail{margin-top: 25px;}
+
+.upimg{width:600px; }
+.upimgleft{width:120px;  float:left;}
+.upimgright{width:320px; float:left;}
+
+.btns, .btns2, .btns3, .btns4, .btns5{position: relative;overflow: hidden;margin-right: 4px;display:inline-block;
+*display:inline;padding:4px 10px 4px;font-size:14px;line-height:18px; 
+*line-height:20px;color:#fff; 
+text-align:center;vertical-align:middle;cursor:pointer;background:#5bb75b; 
+border:1px solid #cccccc;border-color:#e6e6e6 #e6e6e6 #bfbfbf; 
+border-bottom-color:#b3b3b3;-webkit-border-radius:4px; -moz-border-radius:4px;border-radius:4px;} 
+.btns input, .btns2 input, .btns3 input, .btns4 input, .btns5 input{position: absolute;top: 0; right: 0;margin: 0;border:solid transparent; opacity: 0;filter:alpha(opacity=0); cursor: pointer;} 
+.progress, .progress2, .progress3, .progress4, .progress5{position:relative; margin-left:100px; margin-top:-24px;  width:200px;padding: 1px; border-radius:3px; display:none} 
+.bar, .bar2 , .bar3 , .bar4 , .bar5 {background-color: green; display:block; width:0%; height:20px;  border-radius:3px; } 
+.percent, .percent2, .percent3, .percent4, .percent5{position:absolute; height:20px; display:inline-block;  top:3px; left:2%; color:#fff } 
+.files, .files2, .files3, .files4, .files5{height:15px; margin:0 0 6px;} 
+.delimg, .delimg2, .delimg3, .delimg4, .delimg5{margin-left:20px; color:#090; cursor:pointer} 
+
+
+.a-upload {
+    padding: 4px 10px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
