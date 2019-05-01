@@ -3,20 +3,18 @@
 {% block content %}
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> {{ menutitle }} <span class="c-gray en">&gt;</span> {{ navtitle }} <a class="btn btn-success radius r refresh" id="btn-refresh" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="add('添加文章','add','','520')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加文章</a></span> <span class="r">共有数据：<strong>{{ count }}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="add('添加图文回复','add','','520')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加图文回复</a></span> <span class="r">共有数据：<strong>{{ count }}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="50">ID</th>
-				<th width="">文章标题</th>
-				<th width="70">所属单元</th>
-				<th width="70">所属分类</th>
-				<th width="70">来源/作者</th>
-				<th width="50">置顶</th>
-				<th width="50">排序</th>
-				<th width="100">发布时间</th>
+				<th width="80">关键词</th>
+				<th width="">回复图文标题</th>
+				<th width="90">创建时间</th>
+				<th width="260">对外链接</th>
+				<th width="80">匹配</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
@@ -26,19 +24,13 @@
 				<tr class="text-c">					
 					<td><input type="checkbox" name="did" value="{{ list.id }}"></td>
 					<td>{{ list.id }}</td>
-					<td class="text-l">{{ list.title }}</td>
-					<td>{{ list.section.title or '' }}</td>
-					<td>{{ list.category.title or '' }}</td>
-					<td>{{ list.author }}</td>
-					<td class="td-istop">
-						{% if list.istop == 0 %}
-							<i class="Hui-iconfont">&#xe608;</i>
-						{% else %}
-							<i class="Hui-iconfont">&#xe6a8;</i>
-						{% endif %}
+					<td>{{ list.keyword }}</td>
+					<td class="text-l">{{ list.title or '' }}</td>
+					<td>{{ list.create_datetime }}</td>
+					<td class="text-l">{{ list.url or '' }}</td>
+                    <td>
+						{% if list.type == 1 %}完全匹配{% else %}模糊匹配{% endif %}
 					</td>
-					<td>{{ list.sort }}</td>
-					<td>{{ list.start_time_date }}</td>
 					<td class="td-status">
 						{% if list.status == 1 %}
 							<span class="label label-success radius">已启用</span>
@@ -72,7 +64,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,2,3,4,5,6,9,10]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,2,3,4,5,6,7]}// 制定列不参与排序
 		]
 	});
 	$('.table-sort tbody').on( 'click', 'tr', function () {
@@ -98,12 +90,13 @@ function edit(title,url,w,h){
 
 /*停用*/
 function stop(obj,id){
+    console.log(id);
 	layer.confirm('确认要停用吗？',function(){
 		var submitData = {
 			id : id,
 			status : 0,
 	    };
-	    $.post("{{ url_for('admin.article_edit') }}", submitData, function(res) {
+	    $.post("{{ url_for('admin.wx_imgtext_edit') }}", submitData, function(res) {
 			if (res.status == 200) {
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="start(this,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
@@ -123,7 +116,7 @@ function start(obj,id){
 			id : id,
 			status : 1,
 	    };
-		$.post("{{ url_for('admin.article_edit') }}", submitData, function(res) {
+		$.post("{{ url_for('admin.wx_imgtext_edit') }}", submitData, function(res) {
 			if (res.status == 200) {
 				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="stop(this,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
@@ -142,7 +135,7 @@ function del(obj,id){
 		var submitData = {
 			id : id,
 	    }
-	    $.post("{{ url_for('admin.article_delete') }}", submitData, function(res) {
+	    $.post("{{ url_for('admin.wx_imgtext_delete') }}", submitData, function(res) {
 			if (res.status == 200) {
 				$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
@@ -168,7 +161,7 @@ function datadel(){
 			id : value.join(','),
 		}
 
-		$.post("{{ url_for('admin.article_delete') }}", submitData, function(res) {
+		$.post("{{ url_for('admin.wx_imgtext_delete') }}", submitData, function(res) {
 			if (res.status == 200) {
 				window.location.reload();
 				layer.msg('已删除!',{icon:1,time:1000});

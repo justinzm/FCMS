@@ -1,12 +1,11 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+
 import os
 import time
-
 from flask import request
 from sqlalchemy import Column, Integer, String, Text, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-
 from app.models.base import Base
 
 __author__ = 'justin.郑'

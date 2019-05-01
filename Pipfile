@@ -13,6 +13,9 @@ cymysql = "*"
 wtforms = "*"
 flask-httpauth = "*"
 flask-cache = "*"
+requests = "*"
+lxml = {path = "e:/lxml-4.3.1-cp37-cp37m-win_amd64.whl"}
+wheel = {index = "https://pypi.doubanio.com/simple",version = "*"}
 
 [dev-packages]
 

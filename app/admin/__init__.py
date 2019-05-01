@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+
 from flask import Blueprint
 from app.admin import auth_group, login, index, welcome, auth_permission, auth_user, conf, section, category, article, \
-    upload
+    upload, wx_reply, wx_diymenu, wx_text, wx_imgtext, page
 
 __author__ = 'justin.郑'
 
@@ -21,6 +22,11 @@ def create_blueprint_admin():
     category.api.register(admin_blueprint)
     article.api.register(admin_blueprint)
     upload.api.register(admin_blueprint)
+    wx_reply.api.register(admin_blueprint)
+    wx_diymenu.api.register(admin_blueprint)
+    wx_text.api.register(admin_blueprint)
+    wx_imgtext.api.register(admin_blueprint)
+    page.api.register(admin_blueprint)
 
     return admin_blueprint
 

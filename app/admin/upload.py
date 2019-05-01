@@ -9,6 +9,7 @@ import os
 import re
 import string
 import random
+import platform
 
 from flask import request, make_response, current_app, jsonify
 
@@ -24,15 +25,20 @@ def uploadimg():
     图片上传
     :return:
     """
+    if platform.system() == "Windows":
+        upload = "upload\\"
+    else:
+        upload = "upload/"
+
     if request.method == 'POST':
         if request.method == 'POST' and 'file' in request.files:
             file = request.files['file']
             perfix = file.filename.split('.')[-1]
             str = string.ascii_letters + string.digits
             filename = ''.join(random.sample(str, 32))+'.'+perfix
-            path = os.path.join(current_app.static_folder, "upload\\", filename)
+            path = os.path.join(current_app.static_folder, upload, filename)
             file.save(path)
-            imgpath = os.path.join("upload\\", filename)
+            imgpath = os.path.join(upload, filename)
             return jsonify({"path": imgpath})
 
 

@@ -40,7 +40,9 @@ def create_app():
 def register_blueprint(app):
     from app.admin import create_blueprint_admin
     from app.home import home
+    from app.wechat import wechat
 
     app.register_blueprint(create_blueprint_admin(), url_prefix="/admin")
     app.register_blueprint(home)
+    app.register_blueprint(wechat)
 

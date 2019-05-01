@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+
 import time
 from datetime import datetime
 from contextlib import contextmanager
@@ -42,7 +43,7 @@ class Query(BaseQuery):
 
     def delete(self, synchronize_session="evaluate"):
         # 软删除
-        values = {'is_delete':1, 'delete_time':int(datetime.now().timestamp())}
+        values = {'is_delete': 1, 'delete_time': int(datetime.now().timestamp())}
         super(Query, self).update(values, synchronize_session=synchronize_session, update_args=None)
 
 
@@ -52,7 +53,8 @@ db = SQLAlchemy(query_class=Query)
 class Base(db.Model):
     __abstract__ = True
 
-    prefix = 'cms_'
+    # 设置表名前缀
+    prefix = 'sf_'
 
     is_delete = Column(Boolean, default=False, comment="是否删除 True为删除")
     create_time = Column(Integer, comment="创建时间")

@@ -20,3 +20,16 @@ class Ad(Base):
     sort = Column(Integer, default=0, comment="排序")
     type = Column(String(50), comment="类型")
     hits = Column(Integer, comment="点击量")
+
+    @classmethod
+    def all(cls):
+        return Ad.query.filter_by().all()
+
+    @classmethod
+    def count(cls):
+        return Ad.query.filter_by().count()
+
+    @classmethod
+    def by_id(cls, id):
+        return Ad.query.filter_by(id=id).first()
+
