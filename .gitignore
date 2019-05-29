@@ -108,3 +108,4 @@ Pipfile.lock
 *.iml
 app/settings.py
 Pipfile.lock
+favicon.ico
