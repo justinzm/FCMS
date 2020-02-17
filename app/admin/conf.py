@@ -4,6 +4,7 @@ from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.conf import Conf
+from app.models.base import db
 
 __author__ = 'justin.郑'
 
@@ -24,6 +25,7 @@ def conf_index():
         id = request.form.get('id')
         try:
             mdb.query.filter_by(id=id).update(data)
+            db.session.commit()
         except Exception as e:
             return jsonify({'status': 400, 'message': e})
         return jsonify({'status': 200})

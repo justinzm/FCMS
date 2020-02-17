@@ -8,5 +8,4 @@ __author__ = 'justin.郑'
 
 wechat = Blueprint('wechat', __name__)
 
-from app.wechat import api
-from app.wechat import test
+# from app.wechat import test

@@ -54,6 +54,7 @@ def category_edit():
         id = request.form.get('id')
         try:
             mdb.query.filter_by(id=id).update(data)
+            db.session.commit()
         except Exception as e:
             return jsonify({'status': 400, 'msg': e})
         return jsonify({'status': 200})
@@ -70,6 +71,7 @@ def category_delete():
                 mdb.query.filter_by(id=i).delete()
         else:
             mdb.query.filter_by(id=id).delete()
+        db.session.commit()
     except Exception as e:
         return jsonify({'status': 400, 'msg': e})
     return jsonify({'status': 200})

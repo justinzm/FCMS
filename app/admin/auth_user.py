@@ -55,6 +55,7 @@ def auth_user_edit():
             data['_password'] = generate_password_hash(request.form.get('_password'))
         try:
              mdb.query.filter_by(id=id).update(data)
+             db.session.commit()
         except Exception as e:
             return jsonify({'status': 400, 'msg': e})
         return jsonify({'status': 200})
@@ -72,6 +73,7 @@ def auth_user_delete():
                 mdb.query.filter_by(id=i).delete()
         else:
             mdb.query.filter_by(id=id).delete()
+        db.session.commit()
     except Exception as e:
         return jsonify({'status': 400, 'msg': e})
     return jsonify({'status': 200})

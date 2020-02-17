@@ -54,7 +54,7 @@ class Base(db.Model):
     __abstract__ = True
 
     # 设置表名前缀
-    prefix = 'sf_'
+    prefix = 'cms_'
 
     is_delete = Column(Boolean, default=False, comment="是否删除 True为删除")
     create_time = Column(Integer, comment="创建时间")

@@ -1,13 +1,6 @@
-[[source]]
-name = "pypi"
-url = "https://pypi.doubanio.com/simple"
-verify_ssl = true
-
-[dev-packages]
-
-[packages]
 flask = "*"
 flask-login = "*"
+flask-sqlalchemy = "*"
 flask-script = "*"
 flask-migrate = "*"
 cymysql = "*"
@@ -20,7 +13,3 @@ wheel = "*"
 wechatpy = "*"
 paramiko = "*"
 pycryptodome = "*"
-flask-sqlalchemy = "*"
-
-[requires]
-python_version = "3.7"

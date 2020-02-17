@@ -42,8 +42,9 @@ def logout():
     logout_user()
     return redirect(url_for('admin.index'))
 
+
 @api.route('/test')
 def test():
-    CmsLogger('info').info('菜市场上厕所')
+    CmsLogger('info').info('测试logger')
     return 'abc'
 
