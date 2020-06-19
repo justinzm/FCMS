@@ -13,3 +13,4 @@ from . import home
 def index():
     # return 'home index'
     return redirect(url_for('admin.login'))
+

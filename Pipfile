@@ -21,6 +21,7 @@ wechatpy = "*"
 paramiko = "*"
 pycryptodome = "*"
 flask-sqlalchemy = "*"
+flask-docs = "*"
 
 [requires]
 python_version = "3.7"

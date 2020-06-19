@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 from flask import Flask
+from flask_docs import ApiDoc
 from flask_migrate import Migrate
 
 from app.models.base import db
@@ -22,6 +23,12 @@ def create_app():
     app.config.from_object('app.secure')
     app.config.from_object('app.settings')
 
+    # 需要显示文档的 Api
+    app.config['API_DOC_MEMBER'] = ['api']
+    # 需要排除的 RESTful Api 文档
+    app.config['RESTFUL_API_DOC_EXCLUDE'] = []
+    ApiDoc(app)
+
     register_blueprint(app)
 
     login_manager.init_app(app)
@@ -41,8 +48,10 @@ def register_blueprint(app):
     from app.admin import create_blueprint_admin
     from app.home import home
     from app.wechat import wechat
+    from app.api import api
 
     app.register_blueprint(create_blueprint_admin(), url_prefix="/admin")
     app.register_blueprint(home)
     app.register_blueprint(wechat)
+    app.register_blueprint(api)
 
