@@ -132,19 +132,6 @@ INSERT INTO `cms_auth_permission` VALUES ('0', '1550469248', null, null, '28', '
 INSERT INTO `cms_auth_permission` VALUES ('0', '1550473786', null, null, '29', '/admin/article/add', '添加文章', '1', '', '22', '0');
 INSERT INTO `cms_auth_permission` VALUES ('0', '1550473804', null, null, '30', '/admin/article/edit', '修改文章', '1', '', '22', '0');
 INSERT INTO `cms_auth_permission` VALUES ('0', '1550473823', null, null, '31', '/admin/article/delete', '删除文章', '1', '', '22', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551332694', null, '1581914937', '32', '/admin/stock_news/index', '股票采集新闻', '1', null, '19', '9');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551344243', null, '1581914966', '33', '/admin/stock_news/edit', '修改股票新闻', '1', null, '32', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551344262', null, '1581914966', '34', '/admin/stock_news/delete', '删除股票新闻', '1', null, '32', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551681267', '1552893076', '1581914966', '35', '/admin/stock_notice/index', '股票采集公告', '1', 'None', '19', '7');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551681296', null, '1581914966', '36', '/admin/stock_notice/edit', '修改股票公告', '1', null, '35', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551681317', null, '1581914966', '37', '/admin/stock_notice/delete', '删除股票', '1', null, '35', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551946816', null, '1581914967', '38', '/admin/social_media/index', '社交媒体管理', '1', null, '19', '5');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551946893', null, '1581914967', '39', '/admin/social_media/delete', '删除社交媒体', '1', null, '38', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551946922', null, '1581914967', '40', '/admin/social_media/edit', '编辑社交媒体', '1', null, '38', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1551946952', null, '1581914967', '41', '/admin/social_media/add', '添加社交媒体', '1', null, '38', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1552031689', null, '1581914967', '42', '/admin/stock_shibor/index', '拆放利率管理', '1', null, '19', '4');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1552031737', null, '1581914967', '43', '/admin/stock_shibor/delete', '删除拆放利率', '1', null, '42', '0');
-INSERT INTO `cms_auth_permission` VALUES ('1', '1552031783', null, '1581914967', '44', '/admin/stock_shibor/add_shibor', '添加拆放利率', '1', null, '42', '0');
 
 -- ----------------------------
 -- Table structure for cms_auth_user
@@ -168,7 +155,6 @@ CREATE TABLE `cms_auth_user` (
 -- ----------------------------
 -- Records of cms_auth_user
 -- ----------------------------
-INSERT INTO `cms_auth_user` VALUES ('0', '1550217533', '1550370060', null, '1', '123', 'pbkdf2:sha256:50000$2f9aUaA1$16522585a7df10faaf2c657f4f9234d4841318ceab45bc9770dc5fc3deaa7c7b', '1', '2');
 INSERT INTO `cms_auth_user` VALUES ('0', '1550217545', null, null, '2', 'admin', 'pbkdf2:sha256:150000$vI60tpUO$02a16ca54d2aa4c0296f00be65a2d3abcfbca48aebebdc41d9f66cc635149a13', '1', '1');
 
 -- ----------------------------
@@ -192,12 +178,6 @@ CREATE TABLE `cms_category` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of cms_category
--- ----------------------------
-INSERT INTO `cms_category` VALUES ('0', '1550472228', '1550473336', '1550473349', '1', '分类一23', '1223333', '322332的士速递3', '1', '0', '2');
-INSERT INTO `cms_category` VALUES ('0', '1550473366', '1550473369', null, '2', '分类111', '11', '恶', '1', '3', '2');
-
--- ----------------------------
 -- Table structure for cms_config
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_config`;
@@ -217,11 +197,6 @@ CREATE TABLE `cms_config` (
   `address` varchar(300) DEFAULT NULL COMMENT '公司地址',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cms_config
--- ----------------------------
-INSERT INTO `cms_config` VALUES ('0', null, '1581914902', null, '1', '防疫互助宝', '站点关键词', '站点描述', '3223', 'https://sars2.newmin.cn', '1212', '199', null);
 
 -- ----------------------------
 -- Table structure for cms_page
@@ -267,10 +242,3 @@ CREATE TABLE `cms_section` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of cms_section
--- ----------------------------
-INSERT INTO `cms_section` VALUES ('1', '1550470165', '1550470950', '1550470959', '1', '单元一1', '111', '描述', '1', '0');
-INSERT INTO `cms_section` VALUES ('0', '1550470974', null, null, '2', '单元一', '11', '', '1', '0');
-INSERT INTO `cms_section` VALUES ('0', '1550470985', null, null, '3', '单元二', '222', '', '1', '0');
-INSERT INTO `cms_section` VALUES ('0', '1550471002', null, null, '4', '单元四', '444', '', '1', '0');

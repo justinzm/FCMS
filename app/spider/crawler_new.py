@@ -58,15 +58,12 @@ class SinaNew:
         except:
             return '', ''
 
-
     def _get_date(self, str):
         try:
             dl = re.findall(r"\d{4}-\d{1,2}-\d{1,2}", str)
             return dl[0]
         except Exception:
             return ''
-
-
 
 
 if __name__ == '__main__':

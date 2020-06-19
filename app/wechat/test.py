@@ -7,7 +7,6 @@
 
 from flask import request, jsonify, abort, current_app
 from wechatpy import WeChatClient
-
 from app.libs.logger import CmsLogger
 from app.models.wx_diymenu import WxDiymenu
 from app.wechat import wechat

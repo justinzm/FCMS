@@ -3,8 +3,10 @@
 
 import os
 from flask import request, jsonify, abort
-
 from app.libs.logger import CmsLogger
+from app.models.wx_imgtext import WxImgtext
+from app.models.wx_reply import WxReply
+from app.models.wx_text import WxText
 from app.wechat import wechat
 
 __author__ = 'justin.郑'
