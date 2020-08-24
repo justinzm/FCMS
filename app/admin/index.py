@@ -15,6 +15,7 @@ __author__ = 'justin.郑'
 api = Redprint('index')
 db_conf = globals()['Conf']
 
+
 @api.route('/')
 @login_required
 def index():

@@ -19,7 +19,7 @@ class ArrayLevel:
         return self.list
 
 
-def arrayTree(array, pid='pid', child_key_name = 'children'):
+def arrayTree(array, pid='pid', child_key_name='children'):
     """
     构建层级（树状）数组
     :param array:   要进行处理的一维数组，经过该函数处理后，该数组自动转为树状数组
