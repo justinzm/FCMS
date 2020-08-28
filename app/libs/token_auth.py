@@ -34,13 +34,12 @@ def verify_auth_token(token):
         raise AuthFailed(msg="token is invalid", error_code=4002)
     except SignatureExpired:
         raise AuthFailed(msg="token is expired", error_code=4003)
-    tmp = request
+
     # request 视图函数
     allow = is_in_scope(data['scope'], request.endpoint)
-    pass
-    # if not allow:
-    #     raise Forbidden()
-    # return Member(data['uid'], data['ac_type'], data['scope'])
+    if not allow:
+        raise Forbidden()
+    return Member(data['uid'], data['ac_type'], data['scope'])
 
 
 # @auth.verify_password
