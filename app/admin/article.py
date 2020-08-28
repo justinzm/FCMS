@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+
 from flask import render_template, request, jsonify
 import time
 from app.libs.redprint import Redprint

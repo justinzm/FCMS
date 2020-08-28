@@ -3,7 +3,8 @@
 # @Time    : 2019/2/15 0015
 # @Author  : justin.郑 3907721@qq.com
 # @File    : error.py
-# @Desc    :
+# @Desc    : 更改HTTPException为APIException
+
 from flask import request, json
 from werkzeug.exceptions import HTTPException
 
@@ -28,8 +29,8 @@ class APIException(HTTPException):
             error_code=self.error_code,
             request=request.method + ' ' + self.get_url_no_param()
         )
-        text = json.dumps(body)
-        return text
+        res_json = json.dumps(body)
+        return res_json
 
     def get_headers(self, environ=None):
         return [('Content-Type', 'application/json')]

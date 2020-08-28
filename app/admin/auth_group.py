@@ -2,11 +2,11 @@
 # -*- coding:utf-8 -*-
 from flask import render_template, request, jsonify
 
-from app.forms.auth import AuthGroupForm
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.auth_group import AuthGroup
 from app.models.base import db
+from app.validators.forms import AuthGroupForm
 
 __author__ = 'justin.郑'
 
