@@ -5,6 +5,7 @@
 # @File    : member.py
 # @Desc    : 会员管理库
 
+import secrets
 from sqlalchemy import Column, Integer, String, Boolean, SmallInteger
 from app.libs.error_code import NotFound, AuthFailed
 from app.models.base import Base
@@ -19,6 +20,8 @@ class Member(Base):
     mobile = Column(String(20), comment="用户手机号")
     email = Column(String(50), comment="用户邮箱")
     openid = Column(String(30), comment="微信openid")
+    _app_key = Column('app_key', String(128), nullable=False, comment="app_key")
+    _app_secret = Column('app_secret', String(128), nullable=False, comment="app_secret")
     auth = Column(SmallInteger, default=1, comment="1普通用户，2管理员用户")
     _password = Column('password', String(128), nullable=False, comment="密码")
     type = Column(Integer, comment="类型1手机号 2邮箱 3微信")
@@ -30,9 +33,9 @@ class Member(Base):
 
     @property
     def type_str(self):
-        if self.type == 1:
+        if self.type == 2:
             return "手机号注册"
-        elif self.type == 2:
+        elif self.type == 1:
             return "邮箱注册"
         elif self.type == 3:
             return "微信注册"
@@ -41,9 +44,19 @@ class Member(Base):
     def password(self):
         return self._password
 
+    @property
+    def app_key(self):
+        return self._app_key
+
+    @property
+    def app_secret(self):
+        return self._app_secret
+
     @password.setter
     def password(self, raw):
         self._password = generate_password_hash(raw)
+        self._app_key = str(secrets.token_hex(nbytes=16))
+        self._app_secret = str(secrets.token_hex(nbytes=32))
 
     @classmethod
     def all(cls):
@@ -58,12 +71,30 @@ class Member(Base):
         return Member.query.filter_by(id=id).first()
  
     @staticmethod
-    def verify(email, password):
+    def verify_email(email, password):
         find = Member.query.filter_by(email=email, status=1).first()
         if not find:
             raise NotFound(msg="member not found")
         if not find.check_password(password):
             raise AuthFailed()
+        scope = "AdminScope" if find.auth == 2 else "MemberScope"
+        return {"uid": find.id, "scope": scope}
+
+    @staticmethod
+    def verify_mobile(mobile, password):
+        find = Member.query.filter_by(mobile=mobile, status=1).first()
+        if not find:
+            raise NotFound(msg="member not found")
+        if not find.check_password(password):
+            raise AuthFailed()
+        scope = "AdminScope" if find.auth == 2 else "MemberScope"
+        return {"uid": find.id, "scope": scope}
+
+    @staticmethod
+    def verify(app_key, app_secret):
+        find = Member.query.filter_by(_app_key=app_key, _app_secret=app_secret, status=1).first()
+        if not find:
+            raise NotFound(msg="member not found")
         scope = "AdminScope" if find.auth == 2 else "MemberScope"
         return {"uid": find.id, "scope": scope}
 

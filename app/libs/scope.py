@@ -21,11 +21,11 @@ class Scope:
 
 
 class AdminScope(Scope):
-    allow_api = ["api.api_test"]
+    allow_api = []
 
 
 class MemberScope(Scope):
-    allow_api = ["api.A"]
+    allow_api = ["api.api_test"]
 
 
 class SuperScope(Scope):

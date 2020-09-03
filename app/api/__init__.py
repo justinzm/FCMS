@@ -12,9 +12,8 @@ from app.libs.error_code import ServerException
 
 api = Blueprint('api', __name__)
 
-from app.api import test
-from app.api import stock
 from app.api import token
+from app.api import test
 
 
 # 捕捉全局异常

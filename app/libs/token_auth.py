@@ -13,7 +13,7 @@ from app.libs.error_code import AuthFailed, Forbidden
 from app.libs.scope import is_in_scope
 
 auth = HTTPBasicAuth()
-Member = namedtuple("Member", ["uid", "ac_type", "scope"])
+Member = namedtuple("Member", ["uid", "scope"])
 
 
 @auth.verify_password
@@ -39,7 +39,7 @@ def verify_auth_token(token):
     allow = is_in_scope(data['scope'], request.endpoint)
     if not allow:
         raise Forbidden()
-    return Member(data['uid'], data['ac_type'], data['scope'])
+    return Member(data['uid'], data['scope'])
 
 
 # @auth.verify_password

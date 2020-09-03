@@ -24,18 +24,20 @@ class StockForm(BaseForm):
 
 
 class MemberForm(BaseForm):
-    account = StringField(validators=[DataRequired(message='不允许为空'), length(
-        min=5, max=32
-    )])
-    secret = StringField()
-    type = IntegerField(validators=[DataRequired()])
-
-    def validate_type(self, value):
-        try:
-            client = MemberTypeEnum(value.data)
-        except ValueError as e:
-            raise e
-        self.type.data = client
+    # account = StringField(validators=[DataRequired(message='不允许为空'), length(
+    #     min=5, max=32
+    # )])
+    # secret = StringField()
+    app_key = StringField()
+    app_secret = StringField()
+    # type = IntegerField(validators=[DataRequired()])
+    #
+    # def validate_type(self, value):
+    #     try:
+    #         client = MemberTypeEnum(value.data)
+    #     except ValueError as e:
+    #         raise e
+    #     self.type.data = client
 
 
 class LoginForm(BaseForm):

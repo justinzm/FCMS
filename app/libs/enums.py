@@ -10,7 +10,7 @@ from enum import Enum
 
 # 用户类型枚举
 class MemberTypeEnum(Enum):
-    MEMBER_MOBILE = 1
-    MEMBER_EMAIL = 2
+    MEMBER_EMAIL = 1
+    MEMBER_MOBILE = 2
     MEMBER_WX = 3
 

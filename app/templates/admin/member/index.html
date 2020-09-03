@@ -11,9 +11,9 @@
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="60">ID</th>
 				<th width="90">昵称</th>
-				<th width="110">手机号</th>
-				<th width="140">邮箱</th>
-				<th width="">微信OPENID</th>
+				<th width="120">账户</th>
+				<th width="120">app_key</th>
+				<th width="">app_secret</th>
 				<th width="90">创建时间</th>
 				<th width="90">类型</th>
 				<th width="70">状态</th>
@@ -26,9 +26,9 @@
 					<td><input type="checkbox" name="did" value="{{ list.id }}"></td>
 					<td>{{ list.id }}</td>
 					<td>{{ list.nickname or '' }}</td>
-					<td>{{ list.mobile or '' }}</td>
-					<td>{{ list.email or '' }}</td>
-					<td>{{ list.openid or '' }}</td>
+					<td>{{ list.mobile or '' }} {{ list.email or '' }}</td>
+					<td>{{ list.app_key or '' }}</td>
+					<td>{{ list.app_secret or '' }}</td>
 					<td>{{ list.create_datetime }}</td>
 					<td>{{ list.type_str}}</td>
 					<td class="td-status">

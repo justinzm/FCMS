@@ -3,7 +3,7 @@
 
 from flask import Blueprint
 from app.admin import auth_group, login, index, welcome, auth_permission, auth_user, conf, section, category, article, \
-    upload, page, project, template, member
+    upload, page, member
 
 __author__ = 'justin.郑'
 
@@ -23,8 +23,6 @@ def create_blueprint_admin():
     article.api.register(admin_blueprint)
     upload.api.register(admin_blueprint)
     page.api.register(admin_blueprint)
-    project.api.register(admin_blueprint)
-    template.api.register(admin_blueprint)
     member.api.register(admin_blueprint)
 
     return admin_blueprint
