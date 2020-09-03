@@ -25,6 +25,8 @@ wheels/
 *.egg
 .idea
 app/settings.py
+app/secure.py
+fcms.sql
 MANIFEST
 
 # PyInstaller
