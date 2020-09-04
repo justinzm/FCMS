@@ -14,6 +14,9 @@ from app.libs.token_auth import auth
 def api_auth():
     """ API鉴权机制
     @@@
+
+    ****
+
     本文档主要针对HTTP API调用者，调用API时必须在请求头中带上token参数，获取token的流程如下：
 
     #### STEP1：获取用户app_key和app_secret
@@ -56,11 +59,7 @@ def api_auth():
 @api.route('/api/v1/test', methods=['GET'])
 @auth.login_required
 def api_test():
-    """ 测试接口
-    @@@
-
-    @@@
-    """
+    """ 测试接口"""
 
     if request.method == 'GET':
         uid = g.member.uid
