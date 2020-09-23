@@ -6,8 +6,10 @@
 # @Desc    : 接口测试文件
 
 from flask import request, jsonify, g
+from app import cache
 from app.api import api
 from app.libs.token_auth import auth
+import datetime
 
 
 @api.route('/api/v1/auth', methods=['GET'])
@@ -65,4 +67,10 @@ def api_test():
         uid = g.member.uid
         return jsonify({"msg": "ok", "data": "测试", "member_id": uid, "code": 0})
  
+
+@api.route('/api/v1/cache', methods=['GET'])
+@cache.cached(timeout=50)
+def api_test_cache():
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return "hello, world, what's your name, thank you!!...  localtime: " + time
 

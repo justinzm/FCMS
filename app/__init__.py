@@ -1,9 +1,10 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+
 from flask import Flask
+from flask_caching import Cache
 from flask_docs import ApiDoc
 from flask_migrate import Migrate
-
 from app.models.base import db
 from flask_login import LoginManager
 
@@ -14,6 +15,7 @@ __author__ = 'justin.郑'
 """
 
 login_manager = LoginManager()
+cache = Cache(config={'CACHE_TYPE': 'simple'})
 
 
 def create_app():
@@ -38,6 +40,9 @@ def create_app():
     # 注册SQLAlchemy
     db.init_app(app)
     migrate = Migrate(app, db)
+
+    # 设置注册缓存
+    cache.init_app(app)
 
     with app.app_context():
         db.create_all()
