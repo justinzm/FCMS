@@ -1,10 +1,14 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : ad.py
+# @Desc    : 广告管理
 
+import os
+from flask import request
 from sqlalchemy import Column, Integer, String, Text, Boolean
 from app.models.base import Base
-
-__author__ = 'justin.郑'
 
 
 class Ad(Base):
@@ -19,7 +23,11 @@ class Ad(Base):
     status = Column(Boolean, default=True, comment="是否发布")
     sort = Column(Integer, default=0, comment="排序")
     type = Column(String(50), comment="类型")
-    hits = Column(Integer, comment="点击量")
+    hits = Column(Integer,  default=0, comment="点击量")
+
+    @property
+    def url_img(self):
+        return os.path.join(request.url_root, "static\\", self.img)
 
     @classmethod
     def all(cls):
