@@ -62,7 +62,6 @@ def api_auth():
 @auth.login_required
 def api_test():
     """ 测试接口"""
-
     if request.method == 'GET':
         uid = g.member.uid
         return jsonify({"msg": "ok", "data": "测试", "member_id": uid, "code": 0})
