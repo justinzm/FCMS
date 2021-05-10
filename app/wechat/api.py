@@ -40,6 +40,8 @@ def wechat():
     encrypt_type = request.args.get('encrypt_type', 'raw')
     msg_signature = request.args.get('msg_signature', '')
 
+    reply = False
+
     try:
         check_signature(TOKEN, signature, timestamp, nonce)
     except InvalidSignatureException:
@@ -78,6 +80,8 @@ def wechat():
 
         if reply:
             return reply.render()
+        return None
+    return None
 
 
 def _subscribe():
