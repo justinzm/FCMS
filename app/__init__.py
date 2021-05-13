@@ -31,6 +31,7 @@ def create_app():
     app.config['RESTFUL_API_DOC_EXCLUDE'] = []
     ApiDoc(app)
 
+    # 注册蓝图
     register_blueprint(app)
 
     login_manager.init_app(app)
