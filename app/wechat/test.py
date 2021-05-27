@@ -11,8 +11,6 @@ from app.libs.logger import CmsLogger
 from app.models.wx_diymenu import WxDiymenu
 from app.wechat import wechat
 
-__author__ = 'justin.郑'
-
 
 @wechat.route('/wechat/test/')
 def test_index():
