@@ -34,7 +34,7 @@ pytz==2021.1
 requests==2.25.1
 six==1.15.0
 SQLAlchemy==1.4.11
-urllib3==1.26.4
+urllib3==1.26.5
 wechatpy==1.8.15
 Werkzeug==1.0.1
 WTForms==2.3.3
