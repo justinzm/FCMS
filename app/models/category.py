@@ -3,7 +3,6 @@
 
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, desc
 from sqlalchemy.orm import relationship
-
 from app.models.base import Base
 
 __author__ = 'justin.郑'
