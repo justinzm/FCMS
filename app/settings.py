@@ -18,6 +18,6 @@ TOKEN_EXPIRATION = 2 * 3600
 
 # 微信公众号 参数
 
-# TOKEN = 'stock2019'
-# APPID = 'wxda91c5eb944fe49a'
-# APPSECRET = 'aa6950a2fb0aabe21840563fefc06dee'
+TOKEN = 'whale2021'
+APPID = 'wxda91c5eb944fe49a'
+APPSECRET = 'aa6950a2fb0aabe21840563fefc06dee'

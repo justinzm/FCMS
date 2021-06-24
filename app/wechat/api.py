@@ -19,11 +19,10 @@ from wechatpy.exceptions import (
     InvalidAppIdException,
 )
 
-
 # set token or get from environments
-TOKEN = os.getenv('WECHAT_TOKEN', 'stock2019')
-AES_KEY = os.getenv('WECHAT_AES_KEY', '')
-APPID = os.getenv('WECHAT_APPID', 'wxda91c5eb944fe49a')
+TOKEN = os.getenv('WECHAT_TOKEN', 'whale2021')
+AES_KEY = os.getenv('WECHAT_AES_KEY', 'wxda91c5eb944fe49a')
+APPID = os.getenv('WECHAT_APPID', 'aa6950a2fb0aabe21840563fefc06dee')
 
 
 @wechat.route('/wechat/index/')

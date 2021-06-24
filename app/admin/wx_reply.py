@@ -4,6 +4,7 @@
 from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
+from app.models.base import db
 from app.models.wx_reply import WxReply
 
 __author__ = 'justin.郑'
@@ -25,6 +26,7 @@ def reply_index():
         # id = request.form.get('id')
         try:
             mdb.query.filter_by(id=1).update(data)
+            db.session.commit()
             return jsonify({'status': 200})
         except Exception as e:
             return jsonify({'status': 400, 'message': e})

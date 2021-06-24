@@ -48,6 +48,7 @@ def wx_imgtext_edit():
         id = request.form.get('id')
         try:
             mdb.query.filter_by(id=id).update(data)
+            db.session.commit()
         except Exception as e:
             return jsonify({'status': 400, 'message': e})
         return jsonify({'status': 200})
@@ -64,6 +65,7 @@ def wx_imgtext_delete():
                 mdb.query.filter_by(id=i).delete()
         else:
             mdb.query.filter_by(id=id).delete()
+        db.session.commit()
     except Exception as e:
         return jsonify({'status': 400, 'message': e})
     return jsonify({'status': 200})

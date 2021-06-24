@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
-from flask import url_for
+from flask import url_for, current_app
 from werkzeug.utils import redirect
 
 __author__ = 'justin.郑'

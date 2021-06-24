@@ -3,7 +3,6 @@
 
 from flask import render_template, request, jsonify, current_app
 from wechatpy import WeChatClient
-
 from app.libs.logger import CmsLogger
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
@@ -59,6 +58,7 @@ def wx_diymenu_edit():
         id = request.form.get('id')
         try:
             mdb.query.filter_by(id=id).update(data)
+            db.session.commit()
         except Exception as e:
             return jsonify({'status': 400, 'message': e})
         return jsonify({'status': 200})
@@ -75,6 +75,7 @@ def wx_diymenu_delete():
                 mdb.query.filter_by(id=i).delete()
         else:
             mdb.query.filter_by(id=id).delete()
+        db.session.commit()
     except Exception as e:
         return jsonify({'status': 400, 'message': e})
     return jsonify({'status': 200})
