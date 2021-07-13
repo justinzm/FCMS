@@ -165,7 +165,7 @@ $(function(){
 		serverUrl: "/admin/upload/upload"
 	});
 	ue.addListener("ready", function () {
-        ue.setContent('{{ find.content }}');
+        ue.setContent('{{ find.content | safe }}');
 	});
 
 	//验证判断，并提交
