@@ -41,10 +41,14 @@ class Query(BaseQuery):
             values['update_time'] = int(datetime.now().timestamp())
         super(Query, self).update(values, synchronize_session=synchronize_session, update_args=update_args)
 
-    def delete(self, synchronize_session="evaluate"):
-        # 软删除
-        values = {'is_delete': 1, 'delete_time': int(datetime.now().timestamp())}
-        super(Query, self).update(values, synchronize_session=synchronize_session, update_args=None)
+    def delete(self, synchronize_session="evaluate", is_delete=False):
+        if is_delete == True:
+            # 真删除
+            super(Query, self).delete()
+        else:
+            # 软删除
+            values = {'is_delete': 1, 'delete_time': int(datetime.now().timestamp())}
+            super(Query, self).update(values, synchronize_session=synchronize_session, update_args=None)
 
 
 db = SQLAlchemy(query_class=Query)
