@@ -29,6 +29,18 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">appid：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="appid" value="{{ find.appid or ''}}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">pagepath：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="pagepath" value="{{ find.pagepath or ''}}">
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">排序：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" placeholder="" name="sort" value="{{ find.sort or ''}}">
@@ -60,6 +72,7 @@
 						<option value="pic_photo_or_album" {% if find.type == 'pic_photo_or_album' %}selected = "selected"{% endif %}>pic_photo_or_album</option>
 						<option value="pic_weixin" {% if find.type == 'pic_weixin' %}selected = "selected"{% endif %}>pic_weixin</option>
 						<option value="location_select" {% if find.type == 'location_select' %}selected = "selected"{% endif %}>location_select</option>
+						<option value="miniprogram" {% if find.type == 'miniprogram' %}selected = "selected"{% endif %}>miniprogram</option>
 					</select>
 				</span>
 			</div>

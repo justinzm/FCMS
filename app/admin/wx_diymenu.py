@@ -98,6 +98,10 @@ def wx_add_menu():
             tmp['url'] = menu1[i].url
         else:
             tmp['key'] = menu1[i].keyword
+        if menu1[i].appid:
+            tmp['url'] = menu1[i].url
+            tmp['appid'] = menu1[i].appid
+            tmp['pagepath'] = menu1[i].pagepath
 
         menu2 = WxDiymenu.query.filter_by(pid=menu1[i].id).order_by(WxDiymenu.sort.desc()).all()
         if menu2:
@@ -110,6 +114,10 @@ def wx_add_menu():
                     tmp2['url'] = menu2[j].url
                 else:
                     tmp2['key'] = menu2[j].keyword
+                if menu2[j].appid:
+                    tmp2['url'] = menu2[j].url
+                    tmp2['appid'] = menu2[j].appid
+                    tmp2['pagepath'] = menu2[j].pagepath
                 tmp['sub_button'].append(tmp2)
         list.append(tmp)
 
@@ -118,8 +126,6 @@ def wx_add_menu():
     }
 
     res = client.menu.update(doc)
-    CmsLogger('info').info('菜市场上厕所3 %s' % doc)
-    CmsLogger('info').info('菜市场上厕所3 %s' % res)
     # return jsonify({'errcode': res['errcode'], 'errmsg': res['errmsg'], 'status': 200})
-    return '123'
+    return '成功'
 
