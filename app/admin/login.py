@@ -18,7 +18,8 @@ db_conf = globals()['Conf']
 @api.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user_find = mdb.query.filter_by(username=request.form.get('username')).first()
+        username = request.form.get('username')
+        user_find = AuthUser.query.filter_by(username=username).first()
         if user_find and user_find.check_password(request.form.get('password')):
             # remember=True 记住我 功能
             login_user(user_find)

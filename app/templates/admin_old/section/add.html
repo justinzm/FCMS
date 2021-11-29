@@ -1,0 +1,97 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<article class="page-container">
+	<form action="" class="form form-horizontal" id="form-menu-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 单元名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="title">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">单元别名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="alias">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="sort" value="0">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="status" type="radio" id="status-1" value="1" checked>
+					<label for="status-1">启动</label>
+				</div>
+				<div class="radio-box">
+					<input name="status" type="radio" id="status-2" value="0">
+					<label for="status-2">停用</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">单元描述：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="单元描述写点什么……" onKeyUp="textarealength(this,100)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	$("#form-menu-add").validate({
+		rules:{
+			title:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			sort:{
+				required:true,
+				number:true,
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			ajaxSubmit();
+		}
+	});
+});
+
+function ajaxSubmit(){
+	var submitData = $('#form-menu-add').serialize();
+    $.post("{{ url_for('admin.section_add') }}", submitData, function(res) {
+		if (res.status == 200) {
+			window.parent.location.reload();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.layer.close(index);
+		}else{
+			alert(res.msg);
+		}
+	}, "json");
+}
+</script>
+{% endblock %}
