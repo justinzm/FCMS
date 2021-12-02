@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-from flask import render_template
+from flask import render_template, current_app
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 
@@ -43,5 +43,5 @@ def index():
 
     find = db_conf.query.filter_by(id=1).first()
 
-    return render_template('admin/index.html', per_list=per_list, find=find)
+    return render_template('admin/index.html', per_list=per_list, find=find, username=current_user.username, group_find=group_find, version=current_app.config['VERSION_ADMIN'])
 

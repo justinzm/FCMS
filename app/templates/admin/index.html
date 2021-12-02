@@ -1,6 +1,6 @@
 {% extends "admin/base.html" %}
 {% block title %}
-<title>{{ find.sitename }} 后台管理</title>
+<title>{{ find.sitename }}</title>
 <meta name="keywords" content="{{ find.metakeys }} ">
 <meta name="description" content="{{ find.metadesc }} ">
 {% endblock %}
@@ -15,20 +15,25 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
+                        <span class="xt_title">{{ find.sitename }}</span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
-                           <span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>
-                            <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                            <span class="block m-t-xs"><strong class="font-bold">{{ username }}</strong></span>
+                            <span class="text-muted text-xs block">{{ group_find.title }}<b class="caret"></b></span>
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" href="profile.html">修改密码</a></li>
+                            <li><a class="J_menuItem" href="#">修改密码</a></li>
                             <li class="divider"></li>
                             <li><a href="javascript:;" onClick="logout()">安全退出</a></li>
                         </ul>
                     </div>
-                    <div class="logo-element">H+</div>
+                    <div class="logo-element">F+</div>
+                </li>
+                <li>
+                    <a class="J_menuItem" href="/admin/welcome/welcome" data-index="0">
+                        <i class="fa fa-home"></i> <span class="nav-label">首页</span>
+                    </a>
                 </li>
                 {% for menu in per_list %}
                     <li>
@@ -44,17 +49,6 @@
                         </ul>
                     </li>
                 {% endfor %}
-                <li>
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="mailbox.html">收件箱</a>
-                            </li>
-                            <li><a class="J_menuItem" href="mail_detail.html">查看邮件</a>
-                            </li>
-                            <li><a class="J_menuItem" href="mail_compose.html">写信</a>
-                            </li>
-                        </ul>
-                    </li>
             </ul>
         </div>
     </nav>
@@ -79,7 +73,7 @@
             <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                    <a href="javascript:;" class="active J_menuTab" data-id="/admin/welcome/welcome">首页</a>
                 </div>
             </nav>
             <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
@@ -96,10 +90,11 @@
             <a href="javascript:;" onClick="logout()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
         <div class="row J_mainContent" id="content-main">
+            <!--默认主页需在对应的页面显示iframe元素上添加name="iframe0"和data-id="默认主页的url"-->
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="{{ url_for('admin.welcome') }}" frameborder="0" data-id="{{ url_for('admin.welcome') }}" seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">&copy; 2014-2017 <a href="http://www.zi-han.net/" target="_blank">zihan's blog</a>
+            <div class="pull-right">Copyright {{ find.sitename }} by {{ version }}</a>
             </div>
         </div>
     </div>
@@ -110,6 +105,10 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
-
+function logout(){
+	if (confirm("您确定要退出吗？"))
+	top.location = "../../admin/login/logout";
+	return false;
+}
 </script>
 {% endblock %}

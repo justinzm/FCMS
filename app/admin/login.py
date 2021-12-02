@@ -34,7 +34,7 @@ def login():
 
     if request.method == 'GET':
         find = db_conf.query.filter_by(id=1).first()
-        return render_template('admin/login/login.html', find=find, version=current_app.config['VERSION_ADMIN'])
+        return render_template('admin/login/login.html', find=find)
 
 
 @api.route('/logout')

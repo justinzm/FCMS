@@ -3567,6 +3567,10 @@ ol.unstyled {
     padding: 10px 20px;
     margin: 0 -15px;
     height: 36px;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    width: 100%;
 }
 
 .footer.fixed_full {
@@ -7889,4 +7893,10 @@ body.skin-3 {
         width: 12.5%;
         font-size: 12px
     }
+}
+
+.xt_title{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 900;
 }

@@ -17,10 +17,15 @@
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/font-awesome.min.css') }}" />
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/animate.css') }}" />
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/style.css') }}" />
+    <!-- Sweet Alert -->
+    <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/sweetalert/sweetalert.css') }}" />
+    <!-- bootstrap-table -->
+    <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/bootstrap-table/bootstrap-table.min.css') }}" />
 {% endblock %}
 </head>
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
-{% block content %} {% endblock %}
+<body class="fixed-sidebar full-height-layout gray-bg">
+{% block content %}
+{% endblock %}
 </body>
 {% block scripts %}
     <!-- 全局js -->

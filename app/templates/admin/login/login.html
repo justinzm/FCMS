@@ -8,44 +8,23 @@
 </head>
 <body>
 {% block content %}
-<div class="header">{{ find.sitename }} 后台管理系统</div>
-<div class="loginWraper">
-  <div id="loginform" class="loginBox">
-    <form class="form form-horizontal" method="post">
-      <div class="row cl">
-        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
-        <div class="formControls col-xs-8">
-          <input id="" name="username" type="text" placeholder="账户" class="input-text size-L">
+  <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name"><br/></h1>
+            </div>
+            <h3>欢迎使用 {{ find.sitename}}</h3>
+            <form class="m-t" role="form" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <button type="button" id="btn" class="btn btn-primary block full-width m-b">登 录</button>
+            </form>
         </div>
-      </div>
-      <div class="row cl">
-        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
-        <div class="formControls col-xs-8">
-          <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
-        </div>
-      </div>
-      <!--<div class="row cl">-->
-        <!--<div class="formControls col-xs-8 col-xs-offset-3">-->
-          <!--<input class="input-text size-L" type="text" name="verify" placeholder="验证码" style="width:150px;  float: left; margin-right: 20px">-->
-          <!--<div alt="点击切换" id="captchaImg" style="vertical-align:middle; cursor:pointer; width: 160px; float: left;">{:captcha_img()}</div>-->
-        <!--</div>-->
-      <!--</div>-->
-<!--       <div class="row cl">
-        <div class="formControls col-xs-8 col-xs-offset-3">
-          <label for="online">
-            <input type="checkbox" name="online" id="online" value="">
-            使我保持登录状态</label>
-        </div>
-      </div> -->
-      <div class="row cl">
-        <div class="formControls col-xs-8 col-xs-offset-3">
-          <input name="" type="button" id="btn" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-<div class="footer">Copyright {{ find.sitename }} by {{ version }}</div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

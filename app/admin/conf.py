@@ -17,7 +17,7 @@ mdb = globals()['Conf']
 def conf_index():
     if request.method == 'GET':
         find = mdb.query.filter_by(id=1).first()
-        return render_template('admin/conf/index.html', find=find, menutitle='站点配置', navtitle='配置')
+        return render_template('admin/conf/index.html', find=find, menutitle='站点管理', navtitle='站点配置')
 
     if request.method == 'POST':
         form = request.form
