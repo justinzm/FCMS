@@ -1,5 +1,9 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : article.py
+# @Desc    : 文章model
 
 import os
 import time
@@ -7,8 +11,6 @@ from flask import request
 from sqlalchemy import Column, Integer, String, Text, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from app.models.base import Base
-
-__author__ = 'justin.郑'
 
 
 class Article(Base):

@@ -19,8 +19,8 @@
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/style.css') }}" />
     <!-- Sweet Alert -->
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/sweetalert/sweetalert.css') }}" />
-    <!-- bootstrap-table -->
-    <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/bootstrap-table/bootstrap-table.min.css') }}" />
+    <!-- Data Tables -->
+    <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/dataTables/dataTables.bootstrap.css') }}" />
 {% endblock %}
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg">
@@ -35,8 +35,15 @@
     <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/layer/layer.min.js') }}"></script>
 
+    <!-- Data Tables -->
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+
+    <!-- layer -->
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/layer/layer.min.js') }}"></script>
+
     <!-- 自定义js -->
-    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/hplus.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/hplus.js') }}?v=9"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/contabs.js') }}"></script>
 
     <!-- 第三方插件 -->

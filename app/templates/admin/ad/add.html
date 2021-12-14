@@ -1,92 +1,120 @@
 {% extends "admin/base.html" %}
 
+{% block head %}
+{{ super() }}
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/iCheck/custom.css') }}" />
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/webuploader/webuploader.css') }}" />
+{% endblock %}
 {% block content %}
-<article class="page-container">
-	<form action="" class="form form-horizontal" id="form-menu-add">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 广告标题：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="title">
-			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">广告类型：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="type">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">广告链接地址：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="url">
-			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">广告图片：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list"></div>
-					<div id="filePicker">选择图片</div>
-					<div id="btn-star" class="btn btn-default btn-uploadstar radius ml-10" style="visibility: hidden">删除</div>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="form_submit">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">广告标题：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="title">
 				</div>
 			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">广告描述：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="intro" cols="" rows="" class="textarea" ></textarea>
-			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">广告代码：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="content" cols="" rows="" class="textarea" ></textarea>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">排序：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="sort">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-1" value="1" checked>
-					<label for="status-1">启动</label>
-				</div>
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-2" value="0">
-					<label for="status-2">停用</label>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">广告类型：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="type">
 				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">广告链接地址：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="url">
+				</div>
 			</div>
-		</div>
-	</form>
-</article>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">广告图片：</label>
+				<div class="col-sm-10">
+					<div class="uploader-thum-container">
+						<div id="fileList" class="uploader-list"></div>
+						<div id="filePicker">选择图片</div>
+						<button id="btn-star" class="btn btn-sm btn-danger btn_delete">删除</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">广告描述：</label>
+				<div class="col-sm-10">
+					<textarea name="intro" cols="" rows="" class="form-control" ></textarea>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">广告代码：</label>
+				<div class="col-sm-10">
+					<textarea name="content" cols="" rows="" class="form-control" ></textarea>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">排序：</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" placeholder="" name="sort" value="0">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-10">
+					<div class="radio i-checks">
+						<label><input type="radio" value="1" id="status-1" name="status" checked><i></i> 启动</label>
+					</div>
+					<div class="radio i-checks">
+						<label><input type="radio" value="0" id="status-2" name="status"><i></i> 停用</label>
+					</div>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-2">
+					<button class="btn btn-primary" type="submit">提交</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-
- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/webuploader/0.1.5/webuploader.css') }}"/>
-<script type="text/javascript" src="{{ url_for('static', filename='lib/webuploader/0.1.5/webuploader.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='lib/webuploader/0.1.5/uploaderImgOne.js') }}"></script>
-
+<!-- jQuery icheck plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/messages_zh.min.js') }}"></script>
+<!-- jQuery icheck plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/webuploader/webuploader.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/webuploader/uploaderImgOne.js') }}"></script>
+<style>
+.thumbnail{ display: inline-block;}
+.btn_delete{ visibility: hidden; width: 76px; height: 26px; margin-left:10px; font-size: 13px }
+</style>
 <script type="text/javascript">
 $(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
+	<!-- iCheck -->
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
 	});
 
-	$("#form-menu-add").validate({
+	$("#form_submit").validate({
 		rules:{
 			title:{
 				required:true,
@@ -104,19 +132,13 @@ $(function(){
 });
 
 function ajaxSubmit(){
-	var submitData = {
-		title       : $('input[name="title"]').val(),
-		url         : $('input[name="url"]').val(),
-		type        : $('input[name="type"]').val(),
-		intro       : $('textarea[name="intro"]').val(),
-		content     : $('textarea[name="content"]').val(),
-		sort	    : $('input[name="sort"]').val(),
-		status      : $('input[name="status"]:checked').val()
-    }
+	var submitData = $('#form_submit').serialize();
+	console.log(submitData)
 	if(imgFile){
-		submitData['img'] = imgFile.path;
+		submitData = submitData + "&img=" +imgFile.path;
 	}
-    $.post("{{ url_for('admin.ad_add') }}", submitData, function(res) {
+	console.log(submitData)
+	$.post("{{ url_for('admin.ad_add') }}", submitData, function(res) {
 		if (res.status == 200) {
 			window.parent.location.reload();
 			var index = parent.layer.getFrameIndex(window.name);
@@ -128,3 +150,4 @@ function ajaxSubmit(){
 }
 </script>
 {% endblock %}
+

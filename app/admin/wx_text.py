@@ -1,13 +1,15 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : wx_text.py
+# @Desc    : 微信文本回复管理
 
 from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.wx_text import WxText
 from app.models.base import db
-
-__author__ = 'justin.郑'
 
 api = Redprint('wx_text')
 mdb = globals()['WxText']
@@ -18,7 +20,7 @@ mdb = globals()['WxText']
 def wx_text_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/wx_text/index.html', list=all, count=count, menutitle='微信文本回复', navtitle='列表')
+    return render_template('admin/wx_text/index.html', list=all, count=count, menutitle='微信文本回复', navtitle='文本回复列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])

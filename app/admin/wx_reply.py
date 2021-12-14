@@ -1,13 +1,15 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : wx_diymenu.py
+# @Desc    : 微信关注回复管理
 
 from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.base import db
 from app.models.wx_reply import WxReply
-
-__author__ = 'justin.郑'
 
 api = Redprint('wx_reply')
 mdb = globals()['WxReply']
@@ -18,7 +20,7 @@ mdb = globals()['WxReply']
 def reply_index():
     if request.method == 'GET':
         find = mdb.query.filter_by(id=1).first()
-        return render_template('admin/wx_reply/index.html', find=find, menutitle='微信公众号', navtitle='关注回复')
+        return render_template('admin/wx_reply/index.html', find=find, menutitle='微信公众号', navtitle='关注回复列表')
 
     if request.method == 'POST':
         form = request.form

@@ -1,13 +1,15 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-from flask import render_template, request, jsonify
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : wx_imgtext.py
+# @Desc    : 微信图文管理
 
+from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.wx_imgtext import WxImgtext
 from app.models.base import db
-
-__author__ = 'justin.郑'
 
 api = Redprint('wx_imgtext')
 mdb = globals()['WxImgtext']
@@ -18,7 +20,7 @@ mdb = globals()['WxImgtext']
 def wx_imgtext_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/wx_imgtext/index.html', list=all, count=count, menutitle='微信图文回复管理', navtitle='列表')
+    return render_template('admin/wx_imgtext/index.html', list=all, count=count, menutitle='微信图文回复管理', navtitle='微信图文回复列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])

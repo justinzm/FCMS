@@ -3,13 +3,12 @@
 # @Time    : 2019/8/13 0013
 # @Author  : justin.郑 3907721@qq.com
 # @File    : queryToDict.py
-# @Desc    : 
+# @Desc    :
 
-
-from datetime import datetime as cdatetime  # 有时候会返回datatime类型
+from datetime import datetime as cdatetime
 from datetime import date, time
 from flask_sqlalchemy import Model
-from sqlalchemy import DateTime, Numeric, Date, Time  # 有时又是DateTime
+from sqlalchemy import DateTime, Numeric, Date, Time
 
 
 def queryToDict(models, field=None):
@@ -60,7 +59,7 @@ def result_to_dict(results):
     return res
 
 
-def model_to_dict(model):  # 这段来自于参考资源
+def model_to_dict(model):
     for col in model.__table__.columns:
         if isinstance(col.type, DateTime):
             value = convert_datetime(getattr(model, col.name))

@@ -1,5 +1,10 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : auth_permission.py
+# @Desc    : 管理员管理
+
 from flask import render_template, request, jsonify
 from werkzeug.security import generate_password_hash
 from app.libs.redprint import Redprint
@@ -8,7 +13,6 @@ from app.models.auth_group import AuthGroup
 from app.models.auth_user import AuthUser
 from app.models.base import db
 
-__author__ = 'justin.郑'
 
 api = Redprint('auth_user')
 mdb = globals()['AuthUser']
@@ -20,7 +24,7 @@ mdb_auth_group = globals()['AuthGroup']
 def auth_user_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/auth_user/index.html', list=all, count=count, menutitle='管理员管理', navtitle='列表')
+    return render_template('admin/auth_user/index.html', list=all, count=count, menutitle='管理员管理', navtitle='管理员列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])
@@ -54,8 +58,8 @@ def auth_user_edit():
         if request.form.get('_password'):
             data['_password'] = generate_password_hash(request.form.get('_password'))
         try:
-             mdb.query.filter_by(id=id).update(data)
-             db.session.commit()
+            mdb.query.filter_by(id=id).update(data)
+            db.session.commit()
         except Exception as e:
             return jsonify({'status': 400, 'msg': e})
         return jsonify({'status': 200})

@@ -4,15 +4,14 @@
 # @Author  : justin.郑 3907721@qq.com
 # @File    : upload.py
 # @Desc    :
+
 import json
 import os
 import re
 import string
 import random
 import platform
-
 from flask import request, make_response, current_app, jsonify
-
 from app.libs.redprint import Redprint
 from app.libs.uploader import Uploader
 

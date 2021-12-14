@@ -1,5 +1,9 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : article.py
+# @Desc    : 文章管理
 
 from flask import render_template, request, jsonify
 import time
@@ -9,8 +13,6 @@ from app.models.section import Section
 from app.models.category import Category
 from app.models.article import Article
 from app.models.base import db
-
-__author__ = 'justin.郑'
 
 api = Redprint('article')
 mdb = globals()['Article']
@@ -23,7 +25,7 @@ mdb_section = globals()['Section']
 def article_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/article/index.html', list=all, count=count, menutitle='文章管理', navtitle='列表')
+    return render_template('admin/article/index.html', list=all, count=count, menutitle='文章管理', navtitle='文章列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])

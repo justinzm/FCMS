@@ -1,13 +1,15 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : page.py
+# @Desc    : 单页管理
 
 from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.page import Page
 from app.models.base import db
-
-__author__ = 'justin.郑'
 
 api = Redprint('page')
 mdb = globals()['Page']
@@ -18,7 +20,7 @@ mdb = globals()['Page']
 def page_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/page/index.html', list=all, count=count, menutitle='单页管理', navtitle='列表')
+    return render_template('admin/page/index.html', list=all, count=count, menutitle='单页管理', navtitle='单页列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])

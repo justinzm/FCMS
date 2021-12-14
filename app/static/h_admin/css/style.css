@@ -3420,6 +3420,7 @@ a:focus {
     background-color: #ffffff;
     height: 1px;
     margin: 20px 0;
+    clear: both;
 }
 
 .hr-line-solid {
@@ -3725,7 +3726,7 @@ nav.page-tabs .page-tabs-content {
 }
 
 #content-main {
-    height: calc(100% - 140px);
+    height: calc(100% - 100px);
     overflow: hidden;
 }
 
@@ -3771,6 +3772,7 @@ nav.page-tabs .page-tabs-content {
     line-height: 1.42857;
     padding: 8px;
     vertical-align: middle;
+    text-align: center;
 }
 
 
@@ -7899,4 +7901,17 @@ body.skin-3 {
     color: #fff;
     font-size: 18px;
     font-weight: 900;
+}
+
+
+.table .text-c th, .table .text-c td {
+    text-align: center;
+}
+
+.table th.text-l, .table td.text-l {
+    text-align: left!important;
+}
+
+.table th.text-r, .table td.text-r {
+    text-align: right!important;
 }

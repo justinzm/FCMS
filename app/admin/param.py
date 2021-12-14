@@ -20,7 +20,7 @@ mdb = globals()['Param']
 def param_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/param/index.html', list=all, count=count, menutitle='参数管理', navtitle='列表')
+    return render_template('admin/param/index.html', list=all, count=count, menutitle='参数管理', navtitle='参数列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])
@@ -42,7 +42,6 @@ def param_edit():
     if request.method == 'GET':
         id = request.args.get('id')
         find = mdb.by_id(id)
-
         return render_template('admin/param/edit.html', find=find)
 
     if request.method == 'POST':

@@ -1,25 +1,23 @@
 {% extends "admin/base.html" %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/ztree/ztree-metro-style.css') }}" />
-<div class="layui-body">
-    <!--tab标签-->
-    <div class="layui-tab layui-tab-brief" style="padding: 30px 0 0 50px">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/js/plugins/ztree/ztree-metro-style.css') }}" />
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
 	    <div class="layui-tab-content">
 	        <div class="layui-tab-item layui-show">
 	            <ul id="tree" class="ztree"></ul>
-
 	        </div>
 	    </div>
 	    <input type="hidden" id="group_id" name="group_id" value="{{ group_id }}">
-	    <button class="btn btn-primary radius" id="auth-btn" style="margin-top:30px">授权</button>
+	    <button class="btn btn-primary radius" id="auth-btn" style="margin-top:50px">授权</button>
 	</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-<script type="text/javascript" src="{{ url_for('static', filename='lib/ztree/jquery.ztree.all.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/ztree/jquery.ztree.all.min.js') }}"></script>
 <script>
 $(document).ready(function(){
 	/**
@@ -78,7 +76,6 @@ $(document).ready(function(){
 				if(res.status == 200){
 					layer.msg(res.msg);
 				}
-
 			}
 		});
 	});

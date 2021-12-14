@@ -1,89 +1,110 @@
 {% extends "admin/base.html" %}
-
+{% block head %}
+{{ super() }}
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/iCheck/custom.css') }}" />
+{% endblock %}
 {% block content %}
-<article class="page-container">
-	<form action="" class="form form-horizontal" id="form-menu-add">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 用户昵称：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="nickname">
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="form_submit">
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">用户昵称：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="nickname">
+				</div>
 			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 用户手机号：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="mobile">
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">用户手机号：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="mobile">
+				</div>
 			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"> 用户邮箱：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="email">
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">用户邮箱：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="email">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 密码：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" placeholder="" name="password">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">密码：</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" placeholder="" name="password">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 重复密码：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" placeholder="" name="confirm_password">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">重复密码：</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" placeholder="" name="confirm_password">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">用户类型：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box">
-					<select name="type" class="select">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">用户类型：</label>
+				<div class="col-sm-10">
+					<select name="type" class="form-control">
 						<option value="1">邮箱注册</option>
 						<option value="2">手机号注册</option>
 					</select>
-				</span>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-1" value="1" checked>
-					<label for="status-1">启动</label>
-				</div>
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-2" value="0">
-					<label for="status-2">停用</label>
 				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-10">
+					<div class="radio i-checks">
+						<label><input type="radio" value="1" id="status-1" name="status" checked><i></i> 启动</label>
+					</div>
+					<div class="radio i-checks">
+						<label><input type="radio" value="0" id="status-2" name="status"><i></i> 停用</label>
+					</div>
+				</div>
 			</div>
-		</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-2">
+					<button class="btn btn-primary" type="submit">提交</button>
+				</div>
+			</div>
 	</form>
 </article>
-
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
+<!-- jQuery icheck plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/messages_zh.min.js') }}"></script>
 <script type="text/javascript">
 $(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
+	<!-- iCheck -->
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
 	});
 
-	$("#form-menu-add").validate({
+	$("#form_submit").validate({
 		rules:{
-			username:{
+			nickname:{
 				required:true,
 				minlength:2,
 				maxlength:16
 			},
+			password:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -98,8 +119,7 @@ function ajaxSubmit(){
 	if($('input[name="password"]').val() != $('input[name="confirm_password"]').val()){
 		layer.msg('两次输入密码不同!',{icon:2,time:1000});
 	}
-	var submitData = $('#form-menu-add').serialize();
-	delete submitData.confirm_password;
+	var submitData = $('#form_submit').serialize();
     $.post("{{ url_for('admin.member_add') }}", submitData, function(res) {
 		if (res.status == 200) {
 			window.parent.location.reload();
@@ -112,3 +132,4 @@ function ajaxSubmit(){
 }
 </script>
 {% endblock %}
+

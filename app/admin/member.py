@@ -12,8 +12,6 @@ from app.libs.role import role_required
 from app.models.member import Member
 from app.models.base import db
 
-__author__ = 'justin.郑'
-
 api = Redprint('member')
 mdb = globals()['Member']
 
@@ -23,7 +21,7 @@ mdb = globals()['Member']
 def member_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/member/index.html', list=all, count=count, menutitle='用户管理', navtitle='列表')
+    return render_template('admin/member/index.html', list=all, count=count, menutitle='用户管理', navtitle='用户列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])
@@ -77,6 +75,4 @@ def member_delete():
         return jsonify({'status': 400, 'msg': e})
     return jsonify({'status': 200})
 
-
- 
 

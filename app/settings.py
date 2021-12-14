@@ -8,16 +8,10 @@ __author__ = 'justin.郑'
 
 PER_PAGE = 15
 
-VERSION_ADMIN = 'admin_flask_cms 1.2'
+VERSION_ADMIN = 'admin_flask_cms 2.0'
 
 STR_TO_INT = ['status', 'pid', 'sort', 'group_id', 'section_id', 'category_id', 'istop']
 
 DATE_TO_INT = ['start_time']
 
 TOKEN_EXPIRATION = 2 * 3600
-
-# 微信公众号 参数
-
-TOKEN = 'whale2021'
-APPID = 'wxda91c5eb944fe49a'
-APPSECRET = 'aa6950a2fb0aabe21840563fefc06dee'

@@ -1,39 +1,47 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-from flask import render_template, request, jsonify
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : auth_group.py
+# @Desc    : 权限组管理
 
+from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.auth_group import AuthGroup
 from app.models.base import db
-from app.validators.forms import AuthGroupForm
-
-__author__ = 'justin.郑'
 
 api = Redprint('auth_group')
 mdb = globals()['AuthGroup']
+
 
 @api.route('/index')
 @role_required()
 def auth_group_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/auth_group/index.html', list=all, count=count, menutitle='权限组管理', navtitle='列表')
+    return render_template('admin/auth_group/index.html', list=all, count=count, menutitle='权限组管理', navtitle='权限组列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])
 @role_required()
 def auth_group_add():
-    form = AuthGroupForm(request.form)
     if request.method == 'POST':
-        if form.validate():
-            with db.auto_commit():
-                res_add = mdb()
-                res_add.set_attrs(form.data)
-                db.session.add(res_add)
-            return jsonify({'status': 200})
-        else:
-            return jsonify({'status': 400, 'msg': list(form.errors.values())[0]})
+        # form = AuthGroupForm(request.form)
+        with db.auto_commit():
+            res_add = mdb()
+            res_add.set_attrs(request.form)
+            db.session.add(res_add)
+        return jsonify({'status': 200})
+        # if form.validate():
+        #     tmp = form.data
+        #     with db.auto_commit():
+        #         res_add = mdb()
+        #         res_add.set_attrs(form.data)
+        #         db.session.add(res_add)
+        #     return jsonify({'status': 200})
+        # else:
+        #     return jsonify({'status': 400, 'msg': list(form.errors.values())[0]})
     else:
         return render_template('admin/auth_group/add.html')
 
@@ -92,4 +100,5 @@ def auth_group_auth():
         except Exception as e:
             return jsonify({'status': 400, 'msg': e})
         return jsonify({'status': 200, 'msg': '设置权限成功'})
+
 

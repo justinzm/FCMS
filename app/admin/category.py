@@ -1,15 +1,17 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : auth_permission.py
+# @Desc    : 分类管理
+
 from flask import render_template, request, jsonify
 from sqlalchemy import desc
-
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.models.section import Section
 from app.models.category import Category
 from app.models.base import db
-
-__author__ = 'justin.郑'
 
 api = Redprint('category')
 mdb = globals()['Category']
@@ -21,7 +23,7 @@ mdb_section = globals()['Section']
 def category_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/category/index.html', list=all, count=count, menutitle='单元管理', navtitle='列表')
+    return render_template('admin/category/index.html', list=all, count=count, menutitle='分类管理', navtitle='分类列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])

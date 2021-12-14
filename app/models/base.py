@@ -1,20 +1,16 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : base.py
+# @Desc    : 基类
 
 import time
 from datetime import datetime
 from contextlib import contextmanager
-
 from flask import current_app
 from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy, BaseQuery
 from sqlalchemy import Column, Integer, Boolean
-
-
-__author__ = 'justin.郑'
-
-"""
-Model 基类
-"""
 
 
 class SQLAlchemy(_SQLAlchemy):
@@ -56,6 +52,10 @@ db = SQLAlchemy(query_class=Query)
 
 class Base(db.Model):
     __abstract__ = True
+    __table_args__ = {
+        'mysql_engine': 'InnoDB',
+        'mysql_charset': 'utf8mb4'
+    }
 
     # 设置表名前缀
     prefix = 'cms_'
@@ -72,7 +72,7 @@ class Base(db.Model):
     def create_datetime(self):
         if self.create_time:
             time = datetime.fromtimestamp(self.create_time)
-            return str(time)[0:10]
+            return str(time)[0:16]
         else:
             return None
 

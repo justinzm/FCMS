@@ -18,7 +18,7 @@ mdb = globals()['Section']
 def section_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/section/index.html', list=all, count=count, menutitle='单元管理', navtitle='列表')
+    return render_template('admin/section/index.html', list=all, count=count, menutitle='单元管理', navtitle='单元列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])

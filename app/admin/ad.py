@@ -2,49 +2,50 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/10/27 0027
 # @Author  : justin.郑 3907721@qq.com
-# @File    : param.py
-# @Desc    : 参数管理
- 
+# @File    : ad.py
+# @Desc    : 广告管理
 
 from flask import render_template, request, jsonify
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
-from app.models.param import Param
+from app.libs.tools import logger_info, logger_error
+from app.models.ad import Ad
 from app.models.base import db
 
-api = Redprint('param')
-mdb = globals()['Param']
+api = Redprint('ad')
+mdb = globals()['Ad']
 
 
 @api.route('/index')
 @role_required()
-def param_index():
+def ad_index():
     all = mdb.all()
     count = mdb.count()
-    return render_template('admin/param/index.html', list=all, count=count, menutitle='参数管理', navtitle='列表')
+    return render_template('admin/ad/index.html', list=all, count=count, menutitle='广告管理', navtitle='广告列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])
 @role_required()
-def param_add():
+def ad_add():
     if request.method == 'POST':
         with db.auto_commit():
             res_add = mdb()
             res_add.set_attrs(request.form)
             db.session.add(res_add)
+            db.session.flush()
+        logger_info("id：%s con：%s" % (res_add.id, str(request.form.to_dict())))
         return jsonify({'status': 200})
     else:
-        return render_template('admin/param/add.html')
+        return render_template('admin/ad/add.html')
 
 
 @api.route('/edit', methods=['POST', 'GET'])
 @role_required()
-def param_edit():
+def ad_edit():
     if request.method == 'GET':
         id = request.args.get('id')
         find = mdb.by_id(id)
-
-        return render_template('admin/param/edit.html', find=find)
+        return render_template('admin/ad/edit.html', find=find)
 
     if request.method == 'POST':
         form = request.form
@@ -53,14 +54,16 @@ def param_edit():
         try:
             mdb.query.filter_by(id=id).update(data)
             db.session.commit()
+            logger_info("id：%s con：%s" % (id, str(data)))
         except Exception as e:
+            logger_error("id：%s err：%s" % (id, str(e)))
             return jsonify({'status': 400, 'msg': e})
         return jsonify({'status': 200})
 
 
 @api.route('/delete', methods=['POST'])
 @role_required()
-def param_delete():
+def ad_delete():
     id = request.form.get('id')
     id_list = id.split(",")
     try:
@@ -71,6 +74,7 @@ def param_delete():
             mdb.query.filter_by(id=id).delete()
         db.session.commit()
     except Exception as e:
+        logger_error("id：%s err：%s" % (id, str(e)))
         return jsonify({'status': 400, 'msg': e})
     return jsonify({'status': 200})
 

@@ -1,6 +1,13 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-__author__ = 'justin.郑'
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2019/2/15 0015
+# @Author  : justin.郑 3907721@qq.com
+# @File    : tools.py
+# @Desc    : 自定义函数
+
+from flask import request
+from flask_login import current_user
+from app.libs.logger import CmsLogger
 
 
 class ArrayLevel:
@@ -41,3 +48,15 @@ def array_children(array, pid):
         if con['pid'] == pid:
             list.append(con)
     return list
+
+
+# 日志
+def logger_info(message=None):
+    tmps = 'admin_id：%s username：%s path：%s message：%s' % (current_user.id, current_user.username, request.path, message)
+    CmsLogger('info').info(message=tmps)
+
+
+def logger_error(message=None):
+    tmps = 'admin_id：%s username：%s path：%s err：%s' % (current_user.id, current_user.username, request.path, message)
+    CmsLogger('error').error(message=tmps)
+

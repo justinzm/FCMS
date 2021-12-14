@@ -1,5 +1,9 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/10/27 0027
+# @Author  : justin.郑 3907721@qq.com
+# @File    : wx_diymenu.py
+# @Desc    : 微信自定义菜单管理
 
 from flask import render_template, request, jsonify, current_app
 from wechatpy import WeChatClient
@@ -9,8 +13,6 @@ from app.libs.role import role_required
 from app.libs.tools import ArrayLevel
 from app.models.wx_diymenu import WxDiymenu
 from app.models.base import db
-
-__author__ = 'justin.郑'
 
 api = Redprint('wx_diymenu')
 mdb = globals()['WxDiymenu']
@@ -24,7 +26,7 @@ def wx_diymenu_index():
     all = arraylevel.get_list()
 
     count = mdb.count()
-    return render_template('admin/wx_diymenu/index.html', list=all, count=count, menutitle='微信自定义菜单', navtitle='列表')
+    return render_template('admin/wx_diymenu/index.html', list=all, count=count, menutitle='微信自定义菜单', navtitle='微信自定义列表')
 
 
 @api.route('/add', methods=['POST', 'GET'])
@@ -85,11 +87,8 @@ def wx_diymenu_delete():
 # @role_required()
 def wx_add_menu():
     client = WeChatClient(current_app.config['APPID'], current_app.config['APPSECRET'])
-
     list = []
-
     menu1 = WxDiymenu.query.filter_by(pid=0).order_by(WxDiymenu.sort.desc()).all()
-
     for i in range(len(menu1)):
         tmp = {}
         tmp['name'] = menu1[i].name
@@ -120,7 +119,6 @@ def wx_add_menu():
                     tmp2['pagepath'] = menu2[j].pagepath
                 tmp['sub_button'].append(tmp2)
         list.append(tmp)
-
     doc = {
         "button": list
     }

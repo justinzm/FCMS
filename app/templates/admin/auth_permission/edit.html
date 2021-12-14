@@ -1,13 +1,16 @@
 {% extends "admin/base.html" %}
-
+{% block head %}
+{{ super() }}
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/iCheck/custom.css') }}" />
+{% endblock %}
 {% block content %}
-<article class="page-container">
-	<form action="" class="form form-horizontal" id="form-menu-add">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">上级菜单：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box">
-					<select name="pid" class="select">
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="form_submit">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">上级菜单：</label>
+				<div class="col-sm-10">
+					<select name="pid" class="form-control">
 						<option value="0">一级菜单</option>
 						{% for plist in permission_list %}
 							<option value="{{ plist.id }}"
@@ -22,76 +25,85 @@
 						</option>
 						{% endfor %}
 					</select>
-				</span>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 菜单名称：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="per_title" value="{{ find.per_title }}">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">控制器方法：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="请输入控制器方法 如：admin/Index/index" name="_per_name" value="{{ find.per_name }}">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">图标：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="（选填）如：&#xe654;" name="icon" value="{{ find.icon }}">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">排序：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="sort" value="{{ find.sort }}">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-1" value="1" {% if find.status == 1 %} checked="checked" {% endif %}>
-					<label for="status-1">启动</label>
-				</div>
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-2" value="0" {% if find.status == 0 %} checked="checked" {% endif %}>
-					<label for="status-2">关闭</label>
 				</div>
 			</div>
-		</div>
-		<input name="id" type="hidden" value="{{ find.id }}">
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;编辑&nbsp;&nbsp;">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">规则（菜单）名称：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="per_title" value="{{ find.per_title }}">
+				</div>
 			</div>
-		</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">控制器方法：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="请输入控制器方法 如：Index/index" name="_per_name" value="{{ find.per_name or '' }}">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">图标：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="icon" value="{{ find.icon or '' }}">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">排序：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="sort" value="{{ find.sort }}">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-10">
+					<div class="radio i-checks">
+						<label><input type="radio" value="1" id="status-1" name="status" checked><i></i> 启动</label>
+					</div>
+					<div class="radio i-checks">
+						<label><input type="radio" value="0" id="status-2" name="status"><i></i> 停用</label>
+					</div>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<input type="hidden" name="id" value="{{ find.id }}">
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-2">
+					<button class="btn btn-primary" type="submit">编辑</button>
+				</div>
+			</div>
 	</form>
 </article>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
+<!-- jQuery icheck plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/messages_zh.min.js') }}"></script>
 <script type="text/javascript">
 $(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
+	<!-- iCheck -->
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
 	});
 
-	$("#form-menu-add").validate({
+	$("#form_submit").validate({
 		rules:{
-			role_title:{
+			per_title:{
 				required:true,
 				minlength:2,
 				maxlength:16
-			},
-			sort:{
-				required:true,
-				number:true,
 			}
 		},
 		onkeyup:false,
@@ -104,9 +116,8 @@ $(function(){
 });
 
 function ajaxSubmit(){
-	var submitData = $('#form-menu-add').serialize();
-	console.log(submitData);
-    $.post("{{ url_for('admin.auth_permission_edit') }}", submitData, function(res) {
+	var submitData = $('#form_submit').serialize();
+	$.post("{{ url_for('admin.auth_permission_edit') }}", submitData, function(res) {
 		if (res.status == 200) {
 			window.parent.location.reload();
 			var index = parent.layer.getFrameIndex(window.name);
@@ -118,3 +129,4 @@ function ajaxSubmit(){
 }
 </script>
 {% endblock %}
+
