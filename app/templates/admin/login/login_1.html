@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% block title %}
+<title>{{ find.sitename }}</title>
+{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+</head>
+<body>
+{% block content %}
+  <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name"><br/></h1>
+            </div>
+            <h3>欢迎使用 {{ find.sitename}}</h3>
+            <form class="m-t" role="form" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <button type="button" id="btn" class="btn btn-primary block full-width m-b">登 录</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+$("#btn").on("click", function () {
+    $.ajax({
+        url: "{{ url_for('admin.login') }}",
+        type: "post",
+        cache: false,
+        data: {
+            username : $('input[name="username"]').val(),
+            password : $('input[name="password"]').val()
+        },
+        success: function (res) {
+          if(res.status == 401){
+            layer.msg(res.msg);
+          }else{
+            location.href = "{{ url_for('admin.index') }}";
+          }
+        }
+    });
+});
+</script>
+{% endblock %}
+</body>
+</html>

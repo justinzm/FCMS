@@ -1,54 +1,59 @@
-{% extends "admin/base.html" %}
-{% block title %}
-<title>登录</title>
-{% endblock %}
-{% block head %}
-{{ super() }}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+	<title>{{ find.sitename }}</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="cache-control" content="no-siteapp">
+	<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/login/style.css') }}?=12" />
 </head>
-<body>
-{% block content %}
-  <div class="middle-box text-center loginscreen  animated fadeInDown">
-        <div>
-            <div>
-                <h1 class="logo-name"><br/></h1>
-            </div>
-            <h3>欢迎使用 {{ find.sitename}}</h3>
-            <form class="m-t" role="form" method="post">
-                <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="用户名" required="">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
-                </div>
-                <button type="button" id="btn" class="btn btn-primary block full-width m-b">登 录</button>
-            </form>
-        </div>
-    </div>
-{% endblock %}
+<body class="login-bg">
+	<canvas id="canvas" class="canvas"></canvas>
+	<div class="login">
+		<div class="mti">
+			{{ find.sitename }}
+		</div>
+		<div class="login-form">
+			<form role="form" method="post">
+				<div class="login-mode act">
+					<div class="login-form-item">
+						<input type="text" name="username" class="txt" placeholder="登录名" required="">
+					</div>
+					<div class="login-form-item">
+						<input type="password" name="password" class="txt" placeholder="密码" required="">
+					</div>
 
-{% block scripts %}
-{{ super() }}
-<script type="text/javascript">
-$("#btn").on("click", function () {
-    $.ajax({
-        url: "{{ url_for('admin.login') }}",
-        type: "post",
-        cache: false,
-        data: {
-            username : $('input[name="username"]').val(),
-            password : $('input[name="password"]').val()
-        },
-        success: function (res) {
-          if(res.status == 401){
-            layer.msg(res.msg);
-          }else{
-            location.href = "{{ url_for('admin.index') }}";
-          }
-        }
-    });
-});
-</script>
-{% endblock %}
+					<button type="button" id="btn" class="btn green">确定</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	</div>
+	<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='h_admin/login/canvas.js') }}"></script>
+	<script type="text/javascript">
+	$("#btn").on("click", function () {
+		$.ajax({
+			url: "{{ url_for('admin.login') }}",
+			type: "post",
+			cache: false,
+			data: {
+				username : $('input[name="username"]').val(),
+				password : $('input[name="password"]').val()
+			},
+			success: function (res) {
+			  if(res.status == 401){
+				layer.msg(res.msg);
+			  }else{
+				location.href = "{{ url_for('admin.index') }}";
+			  }
+			}
+		});
+	});
+	</script>
 </body>
 </html>

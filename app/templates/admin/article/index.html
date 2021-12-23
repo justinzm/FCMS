@@ -33,34 +33,29 @@
 					<th width="50">置顶</th>
 					<th width="50">排序</th>
 					<th width="110">发布时间</th>
-					<th width="70">状态</th>
-					<th width="120">操作</th>
+					<th width="50">状态</th>
+					<th width="90">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for list in list %}
-					<tr>
-						<td><input type="checkbox" name="did" value="{{ list.id }}"></td>
-						<td>{{ list.id }}</td>
-						<td class="text-l">{{ list.title }}</td>
-						<td>{{ list.section.title or '-' }}</td>
-						<td>{{ list.category.title or '-' }}</td>
-						<td>{{ list.author or '-' }}</td>
-						<td>{% if list.istop == 0 %}未置顶{% else %}置顶{% endif %}</td>
-						<td>{{ list.sort }}</td>
-						<td>{{ list.create_datetime }}</td>
-						<td class="td-status">{% if list.status == 1 %}启用{% else %}停用{% endif %}</td>
-						<td class="td-manage">
-							{% if list.status == 1 %}
-								<span class="btn btn-warning btn-xs" onclick="is_status(this,{{ list.id }},'stop')">停用</span>
-							{% else %}
-								<span class="btn btn-success btn-xs" onclick="is_status(this,{{ list.id }},'start')">启动</span>
-							{% endif %}
-							<span class="btn btn-info btn-xs" onclick="new_win('编辑文章','edit?id={{ list.id }}','','')">编辑</span>
-							<span class="btn btn-danger btn-xs" onclick="del(this,{{ list.id }})">删除</span>
-						</td>
-					</tr>
-				{% endfor %}
+<!--				{% for list in list %}-->
+<!--					<tr>-->
+<!--						<td><input type="checkbox" name="did" value="{{ list.id }}"></td>-->
+<!--						<td>{{ list.id }}</td>-->
+<!--						<td class="text-l">{{ list.title }}</td>-->
+<!--						<td>{{ list.section.title or '-' }}</td>-->
+<!--						<td>{{ list.category.title or '-' }}</td>-->
+<!--						<td>{{ list.author or '-' }}</td>-->
+<!--						<td>{% if list.istop == 0 %}未置顶{% else %}置顶{% endif %}</td>-->
+<!--						<td>{{ list.sort }}</td>-->
+<!--						<td>{{ list.create_datetime }}</td>-->
+<!--						<td class="td-status"><input type="checkbox" class="js-switch" name="{{ list.id }}" {% if list.status == 1 %} checked {% endif %} /></td>-->
+<!--						<td class="td-manage">-->
+<!--							<span class="btn btn-info btn-xs" onclick="new_win('编辑文章','edit?id={{ list.id }}','','')">编辑</span>-->
+<!--							<span class="btn btn-danger btn-xs" onclick="del(this,{{ list.id }})">删除</span>-->
+<!--						</td>-->
+<!--					</tr>-->
+<!--				{% endfor %}-->
 			</tbody>
 		</table>
 	</div>
@@ -71,14 +66,67 @@
 {{ super() }}
 <script type="text/javascript">
 $(function(){
-	$('.table-sort').dataTable({
-		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-		"bStateSave": true,//状态保存
-		"aoColumnDefs": [
-		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,2,3,4,5,6,8,9,10]}// 制定列不参与排序
-		]
-	});
+	$('.table-sort').dataTable( {
+        "bProcessing": true, //DataTables载入数据时，是否显示‘进度’提示
+        "bAutoWidth": false,
+        "bSort": false,
+        "bStateSave":true,  // 状态保存
+        "serverSide": true, //启用服务器端分页
+        "destroy":true,     //解决重新渲染问题
+        "bPaginate": true,    //翻页功能
+        "bLengthChange": true,   //改变每页显示数量
+        "sAjaxSource" : "{{ url_for('admin.article_index') }}", //通过ajax实现分页的url路径。
+        "sPaginationType": "full_numbers", //分页显示样式
+        "searching": true,
+        "iDisplayLength": 10, // 每页显示数量
+        "oLanguage": {
+            "sLengthMenu": "每页显示 _MENU_ 条记录",
+            "sSearch": "查找：",
+            "sZeroRecords": "没有检索到数据",
+            "sProcessing": "正在加载数据中...",
+            "sInfoEmpty": "没有数据",
+            "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+            "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "前一页",
+                "sNext": "后一页",
+                "sLast": "尾页"
+            },
+            "oAria": {
+				sSortAscending: "以升序排列此列",
+				sSortDescending: "以降序排列此列"
+			}
+        },
+        "fnServerParams":function(aoData){
+            aoData.push({
+				"name":"imageType",
+				"value":"imageType_value",
+			})
+        },
+        "fnServerData":function(sSource,aoData,fnCallback){
+            $.ajax({
+                "type":'post',
+                "url": "{{ url_for('admin.article_index') }}",
+                "dataType":"json",
+                "data": aoData,
+                "success":function(res){
+                    fnCallback(res);
+
+                    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+					$('.js-switch').each(function(k,v) {
+						new Switchery($(this)[0]);
+					});
+					$(".js-switch").on('change', function () {
+						var status = $(this).prop("checked");
+						var id = $(this).attr("name");
+						is_status(id, status);
+					})
+                }
+            });
+        },
+    });
+
 	$('.table-sort tbody').on( 'click', 'tr', function () {
 		if ( $(this).hasClass('selected') ) {
 			$(this).removeClass('selected');
@@ -91,37 +139,23 @@ $(function(){
 });
 
 /*启动&停用*/
-function is_status(obj,id,type){
-    if(type == "start"){
-    	var status = 1;
-    	var layer_val = "确认要启用吗？";
+function is_status(id,type){
+    if(type == true){
+    	var submitData = { id : id, status : 1 };
     }else{
-    	var status = 0;
-    	var layer_val = "确认要停用吗？";
+    	var submitData = { id : id, status : 0 };
     }
-	layer.confirm(layer_val,function(){
-		var submitData = {
-			id : id,
-			status : status,
-	    };
-	    $.post("{{ url_for('admin.article_edit') }}", submitData, function(res) {
-			if (res.status == 200) {
-				if(type == "start"){
-					$(obj).parents("tr").find(".td-manage").prepend('<span class="btn btn-warning btn-xs" onclick="is_status(this,'+id+',\'stop\')">停用</span>');
-					$(obj).parents("tr").find(".td-status").html('启用');
-					$(obj).remove();
-					layer.msg('已启用!',{icon: 6,time:1000});
-				}else{
-					$(obj).parents("tr").find(".td-manage").prepend('<span class="btn btn-success btn-xs" onclick="is_status(this,'+id+',\'start\')">启动</span>');
-					$(obj).parents("tr").find(".td-status").html('停用');
-					$(obj).remove();
-					layer.msg('已停用!',{icon: 5,time:1000});
-				}
+	$.post("{{ url_for('admin.article_edit') }}", submitData, function(res) {
+		if (res.status == 200) {
+			if(type == true){
+				layer.msg('已启用!',{icon: 6,time:1000});
 			}else{
-				layer.msg(res.msg);
+				layer.msg('已停用!',{icon: 5,time:1000});
 			}
-		}, "json");
-	});
+		}else{
+			layer.msg(res.msg);
+		}
+	}, "json");
 }
 
 /* 删除 */
@@ -168,6 +202,5 @@ function all_del(){
 		}
     });
 }
-
 </script>
 {% endblock %}

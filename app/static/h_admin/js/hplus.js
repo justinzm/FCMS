@@ -143,7 +143,6 @@ function SmoothlyMenu() {
 
 //主题设置
 $(function () {
-
     // 顶部菜单固定
     $('#fixednavbar').click(function () {
         if ($('#fixednavbar').is(':checked')) {
@@ -351,3 +350,15 @@ function layer_close(){
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index);
 }
+
+/* Switchery */
+var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+$('.js-switch').each(function(k,v) {
+	new Switchery($(this)[0]);
+});
+
+$(".js-switch").on('change', function () {
+	var status = $(this).prop("checked");
+	var id = $(this).attr("name");
+	is_status(id, status);
+})

@@ -21,6 +21,8 @@
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/sweetalert/sweetalert.css') }}" />
     <!-- Data Tables -->
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/dataTables/dataTables.bootstrap.css') }}" />
+    <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/switchery/switchery.css') }}?id=1" />
+
 {% endblock %}
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg">
@@ -42,12 +44,14 @@
     <!-- layer -->
     <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/layer/layer.min.js') }}"></script>
 
-    <!-- 自定义js -->
-    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/hplus.js') }}?v=9"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/contabs.js') }}"></script>
+    <!-- Switchery -->
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/switchery/switchery.js') }}"></script>
 
     <!-- 第三方插件 -->
     <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/pace/pace.min.js') }}"></script>
 
+    <!-- 自定义js -->
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/hplus.js') }}?v=12"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/contabs.js') }}"></script>
 {% endblock %}
 </html>

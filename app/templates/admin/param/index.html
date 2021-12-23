@@ -30,8 +30,8 @@
 					<th width="150">参数类型</th>
 					<th width="150">类型名称</th>
 					<th width="70">排序</th>
-					<th width="70">状态</th>
-					<th width="120">操作</th>
+					<th width="50">状态</th>
+					<th width="90">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,13 +43,8 @@
 						<td>{{ list.type or '-' }}</td>
 						<td>{{ list.type_name or '-' }}</td>
 						<td>{{ list.sort }}</td>
-						<td class="td-status">{% if list.status == 1 %}启用{% else %}停用{% endif %}</td>
+						<td class="td-status"><input type="checkbox" class="js-switch" name="{{ list.id }}" {% if list.status == 1 %} checked {% endif %} /></td>
 						<td class="td-manage">
-							{% if list.status == 1 %}
-								<span class="btn btn-warning btn-xs" onclick="is_status(this,{{ list.id }},'stop')">停用</span>
-							{% else %}
-								<span class="btn btn-success btn-xs" onclick="is_status(this,{{ list.id }},'start')">启动</span>
-							{% endif %}
 							<span class="btn btn-info btn-xs" onclick="new_win('编辑参数','edit?id={{ list.id }}','','')">编辑</span>
 							<span class="btn btn-danger btn-xs" onclick="del(this,{{ list.id }})">删除</span>
 						</td>
@@ -85,37 +80,23 @@ $(function(){
 });
 
 /*启动&停用*/
-function is_status(obj,id,type){
-    if(type == "start"){
-    	var status = 1;
-    	var layer_val = "确认要启用吗？";
+function is_status(id,type){
+    if(type == true){
+    	var submitData = { id : id, status : 1 };
     }else{
-    	var status = 0;
-    	var layer_val = "确认要停用吗？";
+    	var submitData = { id : id, status : 0 };
     }
-	layer.confirm(layer_val,function(){
-		var submitData = {
-			id : id,
-			status : status,
-	    };
-	    $.post("{{ url_for('admin.param_edit') }}", submitData, function(res) {
-			if (res.status == 200) {
-				if(type == "start"){
-					$(obj).parents("tr").find(".td-manage").prepend('<span class="btn btn-warning btn-xs" onclick="is_status(this,'+id+',\'stop\')">停用</span>');
-					$(obj).parents("tr").find(".td-status").html('启用');
-					$(obj).remove();
-					layer.msg('已启用!',{icon: 6,time:1000});
-				}else{
-					$(obj).parents("tr").find(".td-manage").prepend('<span class="btn btn-success btn-xs" onclick="is_status(this,'+id+',\'start\')">启动</span>');
-					$(obj).parents("tr").find(".td-status").html('停用');
-					$(obj).remove();
-					layer.msg('已停用!',{icon: 5,time:1000});
-				}
+	$.post("{{ url_for('admin.param_edit') }}", submitData, function(res) {
+		if (res.status == 200) {
+			if(type == true){
+				layer.msg('已启用!',{icon: 6,time:1000});
 			}else{
-				layer.msg(res.msg);
+				layer.msg('已停用!',{icon: 5,time:1000});
 			}
-		}, "json");
-	});
+		}else{
+			layer.msg(res.msg);
+		}
+	}, "json");
 }
 
 /* 删除 */

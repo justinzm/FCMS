@@ -47,7 +47,10 @@ class Article(Base):
 
     @property
     def url_img(self):
-        return os.path.join(request.url_root, "static\\", self.img)
+        if self.img:
+            return os.path.join(request.url_root, "static\\", self.img)
+        else:
+            return ""
 
     @classmethod
     def all(cls):
