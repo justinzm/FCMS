@@ -1,0 +1,146 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-4">
+        <h2>{{ menutitle }}</h2>
+        <ol class="breadcrumb">
+            <li>{{ navtitle }}</li>
+        </ol>
+    </div>
+    <div class="col-lg-8">
+        <div class="title-action">
+            <a href="" class="btn btn-primary">刷新</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox-content float-e-margins">
+		<button class="btn btn-danger" type="button"  onclick="all_del()"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
+		<button class="btn btn-success" type="button" onclick="new_win('新建微信账号','add','','')"><i class="fa fa-plus"></i> 新建微信账号</button>
+	</div>
+	<div class="ibox-content float-e-margins">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value="" id="checkOrCancelAll"></th>
+					<th width="80">ID</th>
+					<th width="">微信名称</th>
+					<th width="150">微信号</th>
+					<th width="150">所属用户</th>
+					<th width="50">状态</th>
+					<th width="90">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for list in list %}
+					<tr>
+						<td><input type="checkbox" name="did" value="{{ list.id }}"></td>
+						<td>{{ list.id }}</td>
+						<td>{{ list.wx_name }}</td>
+						<td>{{ list.wx_sn or '-' }}</td>
+						<td>{{ list.member_id }}</td>
+						<td class="td-status"><input type="checkbox" class="js-switch" name="{{ list.id }}" {% if list.status == 1 %} checked {% endif %} /></td>
+						<td class="td-manage">
+							<span class="btn btn-info btn-xs" onclick="new_win('编辑分类','edit?id={{ list.id }}','','')">编辑</span>
+							<span class="btn btn-danger btn-xs" onclick="del(this,{{ list.id }})">删除</span>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,2,3,4,5,6]}// 制定列不参与排序
+		]
+	});
+	$('.table-sort tbody').on( 'click', 'tr', function () {
+		if ( $(this).hasClass('selected') ) {
+			$(this).removeClass('selected');
+		}
+		else {
+			//$(this).$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
+});
+
+/*启动&停用*/
+function is_status(id,type){
+    if(type == true){
+    	var submitData = { id : id, status : 1 };
+    }else{
+    	var submitData = { id : id, status : 0 };
+    }
+	$.post("{{ url_for('admin.wx_account_edit') }}", submitData, function(res) {
+		if (res.status == 200) {
+			if(type == true){
+				layer.msg('已启用!',{icon: 6,time:1000});
+			}else{
+				layer.msg('已停用!',{icon: 5,time:1000});
+			}
+		}else{
+			layer.msg(res.msg);
+		}
+	}, "json");
+}
+
+/* 删除 */
+function del(obj,id){
+	layer.confirm('确认要删除吗？',function(){
+		var submitData = {
+			id : id,
+	    }
+	    $.post("{{ url_for('admin.wx_account_delete') }}", submitData, function(res) {
+			if (res.status == 200) {
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			}else{
+				layer.msg(res.msg);
+			}
+		}, "json");
+	});
+}
+
+/* 全选&删除 */
+function all_del(){
+    layer.confirm('确认要删除吗？',function(){
+		var did = document.getElementsByName('did');
+		var value = new Array();
+		for(var i = 0; i < did.length; i++){
+			if(did[i].checked){
+				value.push(did[i].value);
+			}
+		}
+		var submitData = {
+			id : value.join(','),
+		}
+		if(value.length > 0){
+			$.post("{{ url_for('admin.wx_account_delete') }}", submitData, function(res) {
+				if (res.status == 200) {
+					window.location.reload();
+					layer.msg('已删除!',{icon:1,time:1000});
+				}else{
+					layer.msg(res.msg);
+				}
+			}, "json");
+		}else{
+			layer.msg('请选择删除项!',{icon: 5,time:1000});
+		}
+    });
+}
+
+</script>
+{% endblock %}

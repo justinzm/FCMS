@@ -1,0 +1,130 @@
+{% extends "admin/base.html" %}
+
+{% block head %}
+{{ super() }}
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/iCheck/custom.css') }}" />
+{% endblock %}
+{% block content %}
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="form_submit">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">分类名称：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="title" value="{{ find.title }}">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">分类别名：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="alias" value="{{ find.alias or '' }}">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">所属单元：</label>
+				<div class="col-sm-10">
+					<select name="section_id" class="form-control">
+						{% for list in section_list %}
+							<option value="{{ list.id }}" {% if list.id == find.section_id %} selected = "selected" {% endif %}>{{ list.title }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">排序：</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" placeholder="" name="sort" value="{{ find.sort }}">
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-10">
+					<div class="radio i-checks">
+						<label><input type="radio" value="1" id="status-1" name="status" {% if find.status == 1 %} checked="checked" {% endif %}><i></i> 启动</label>
+					</div>
+					<div class="radio i-checks">
+						<label><input type="radio" value="0" id="status-2" name="status" {% if find.status == 0 %} checked="checked" {% endif %}><i></i> 停用</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">分类描述：</label>
+				<div class="col-sm-10">
+					<textarea name="intro" cols="" rows="4" class="form-control"  placeholder="分类描述写点什么……" onKeyUp="textarealength(this,200)">{{ find.intro or '' }}</textarea>
+					<span class="help-block m-b-none"><em class="textarea-length">0</em>/200</span>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<input type="hidden" name="id" value="{{ find.id }}">
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-2">
+					<button class="btn btn-primary" type="submit">编辑</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+<!-- jQuery icheck plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/messages_zh.min.js') }}"></script>
+
+<script type="text/javascript">
+$(function(){
+	<!-- iCheck -->
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
+	});
+
+	$("#form_submit").validate({
+		rules:{
+			title:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			ajaxSubmit();
+		}
+	});
+});
+
+function ajaxSubmit(){
+	var submitData = $('#form_submit').serialize();
+	$.post("{{ url_for('admin.category_edit') }}", submitData, function(res) {
+		if (res.status == 200) {
+			window.parent.location.reload();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.layer.close(index);
+		}else{
+			alert(res.msg);
+		}
+	}, "json");
+}
+
+
+</script>
+{% endblock %}
+
