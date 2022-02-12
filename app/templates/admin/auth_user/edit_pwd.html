@@ -4,22 +4,24 @@
 <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/iCheck/custom.css') }}" />
 {% endblock %}
 {% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-4">
+        <h2>修改密码</h2>
+        <ol class="breadcrumb">
+            <li></li>
+        </ol>
+    </div>
+    <div class="col-lg-8">
+    </div>
+</div>
+
 <div class="ibox float-e-margins">
 	<div class="ibox-content">
 		<form class="form-horizontal" id="form_submit">
-
 			<div class="form-group">
-				<label class="col-sm-2 control-label">用户名：</label>
+				<label class="col-sm-2 control-label">修改密码：</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" placeholder="" name="username">
-				</div>
-			</div>
-
-			<div class="hr-line-dashed"></div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">密码：</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" placeholder="" name="password">
+					<input type="password" class="form-control" placeholder="" name="_password">
 				</div>
 			</div>
 
@@ -33,32 +35,8 @@
 
 			<div class="hr-line-dashed"></div>
 			<div class="form-group">
-				<label class="col-sm-2 control-label">所属权限组：</label>
-				<div class="col-sm-10">
-					<select name="group_id" class="form-control">
-						{% for list in group_list %}
-							<option value="{{ list.id }}">{{ list.title }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-
-			<div class="hr-line-dashed"></div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">状态</label>
-				<div class="col-sm-10">
-					<div class="radio i-checks">
-						<label><input type="radio" value="1" id="status-1" name="status" checked><i></i> 启动</label>
-					</div>
-					<div class="radio i-checks">
-						<label><input type="radio" value="0" id="status-2" name="status"><i></i> 停用</label>
-					</div>
-				</div>
-			</div>
-			<div class="hr-line-dashed"></div>
-			<div class="form-group">
 				<div class="col-sm-4 col-sm-offset-2">
-					<button class="btn btn-primary" type="submit">提交</button>
+					<button class="btn btn-primary" type="submit">编辑</button>
 				</div>
 			</div>
 	</form>
@@ -82,11 +60,6 @@ $(function(){
 
 	$("#form_submit").validate({
 		rules:{
-			username:{
-				required:true,
-				minlength:2,
-				maxlength:16
-			},
 			password:{
 				required:true,
 				minlength:2,
@@ -103,17 +76,18 @@ $(function(){
 });
 
 function ajaxSubmit(){
-	if($('input[name="password"]').val() != $('input[name="confirm_password"]').val()){
+	if($('input[name="_password"]').val() != $('input[name="confirm_password"]').val()){
 		layer.msg('两次输入密码不同!',{icon:2,time:1000});
 	}else{
 		var submitData = $('#form_submit').serialize();
-		$.post("{{ url_for('admin.auth_user_add') }}", submitData, function(res) {
+		$.post("{{ url_for('admin.auth_user_edit_pwd') }}", submitData, function(res) {
 			if (res.status == 200) {
+				layer.msg("密码修改成功，请重新登录时起效",{icon:1,time:6000})
 				window.parent.location.reload();
 				var index = parent.layer.getFrameIndex(window.name);
 				parent.layer.close(index);
 			}else{
-				alert(res.msg);
+				layer.msg(res.msg);
 			}
 		}, "json");
 	}

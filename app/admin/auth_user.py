@@ -6,6 +6,7 @@
 # @Desc    : 管理员管理
 
 from flask import render_template, request, jsonify
+from flask_login import current_user
 from werkzeug.security import generate_password_hash
 from app.libs.redprint import Redprint
 from app.libs.role import role_required, logger
@@ -81,4 +82,22 @@ def auth_user_delete():
     except Exception as e:
         return jsonify({'status': 400, 'msg': e})
     return jsonify({'status': 200})
+
+
+@api.route('/edit_pwd', methods=['POST', 'GET'])
+@role_required()
+def auth_user_edit_pwd():
+    if request.method == 'GET':
+        return render_template('admin/auth_user/edit_pwd.html')
+
+    if request.method == 'POST':
+        data = {}
+        if request.form.get('_password'):
+            data['_password'] = generate_password_hash(request.form.get('_password'))
+        try:
+            mdb.query.filter_by(id=current_user.id).update(data)
+            db.session.commit()
+        except Exception as e:
+            return jsonify({'status': 400, 'msg': e})
+        return jsonify({'status': 200})
 
