@@ -1,75 +1,73 @@
 {% extends "admin/base.html" %}
 
 {% block content %}
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> {{ menutitle }} <span class="c-gray en">&gt;</span> {{ navtitle }} <a class="btn btn-success radius r refresh" id="btn-refresh" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<span class="l">
-			<a href="javascript:;" onClick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-			<a href="javascript:;" onClick="add('添加菜单','add','','520')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加菜单</a>
-			<a href="javascript:;" onClick="addWxMenu()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe6bf;</i> 生成微信菜单</a>
-		</span>
-		<span class="r">共有数据：<strong>{{ count }}</strong> 条</span>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-4">
+        <h2>{{ menutitle }}</h2>
+        <ol class="breadcrumb">
+            <li>{{ navtitle }}</li>
+        </ol>
+    </div>
+    <div class="col-lg-8">
+        <div class="title-action">
+            <a href="" class="btn btn-primary">刷新</a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox-content float-e-margins">
+		<button class="btn btn-danger" type="button"  onclick="all_del()"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
+		<button class="btn btn-success" type="button" onclick="new_win('新建回复文本','add','','')"><i class="fa fa-plus"></i> 新建回复文本</button>
 	</div>
-	<div class="mt-20">
-	<table class="table table-border table-bordered table-hover ">
-		<thead>
-			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="140">菜单标题</th>
-				<th width="80">关联关键词</th>
-                <th width="110">类型</th>
-				<th width="">外链URL</th>
-				<th width="40">排序</th>
-				<th width="70">状态</th>
-				<th width="100">操作</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for list in list %}
+	<div class="ibox-content float-e-margins">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
 				<tr class="text-c">
-					<td><input type="checkbox" name="did" value="{{ list.id }}"></td>
-					<td class="text-l">
-                        {% if list.pid > 0 %}|----{% endif %}
-                        {{ list.name or ''}}</td>
-					<td>{{ list.keyword or ''}}</td>
-                    <td>{{ list.type }}</td>
-					<td class="text-l">{{ list.url or ''}}</td>
-					<td>{{ list.sort or 0 }}</td>
-					<td class="td-status">
-						{% if list.status == 1 %}
-							<span class="label label-success radius">已启用</span>
-						{% else %}
-							<span class="label label-defaunt radius">已停用</span>
-						{% endif %}
-					</td>
-					<td class="td-manage">
-						{% if list.status == 1 %}
-							<a class="text-de-none" onClick="stop(this,{{ list.id }})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
-						{% else %}
-							<a class="text-de-none" onClick="start(this,{{ list.id }})" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
-						{% endif %}
-						<a title="编辑" href="javascript:;" onClick="edit('编辑','edit?id={{ list.id }}','','420')" class="ml-5"><i class="Hui-iconfont">&#xe6df;</i></a>
-						<a title="删除" href="javascript:;" onClick="del(this,{{ list.id }})" class="ml-5"><i class="Hui-iconfont">&#xe6e2;</i></a>
-					</td>
+					<th width="25"><input type="checkbox" name="" value="" id="checkOrCancelAll"></th>
+					<th width="160">菜单标题</th>
+					<th width="80">关联关键词</th>
+					<th width="110">类型</th>
+					<th width="">外链URL</th>
+					<th width="50">排序</th>
+					<th width="70">状态</th>
+					<th width="100">操作</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for list in list %}
+					<tr>
+						<td><input type="checkbox" name="did" value="{{ list.id }}"></td>
+						<td class="text-l">
+							{% if list.pid > 0 %}|----{% endif %}
+							{{ list.name or ''}}</td>
+						<td>{{ list.keyword or ''}}</td>
+						<td>{{ list.type }}</td>
+						<td class="text-l">{{ list.url or ''}}</td>
+						<td>{{ list.sort or 0 }}</td>
+						<td class="td-status"><input type="checkbox" class="js-switch" name="{{ list.id }}" {% if list.status == 1 %} checked {% endif %} /></td>
+						<td class="td-manage">
+							<span class="btn btn-info btn-xs" onclick="new_win('编辑','edit?id={{ list.id }}','','')">编辑</span>
+							<span class="btn btn-danger btn-xs" onclick="del(this,{{ list.id }})">删除</span>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
-    {{ super() }}
+{{ super() }}
 <script type="text/javascript">
 $(function(){
 	$('.table-sort').dataTable({
-		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"aaSorting": [],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,2,3,4,5,6,7]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,1,2,3,4,5,6,7]}// 制定列不参与排序
 		]
 	});
 	$('.table-sort tbody').on( 'click', 'tr', function () {
@@ -83,58 +81,27 @@ $(function(){
 	});
 });
 
-/*添加*/
-function add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-
-/*编辑*/
-function edit(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-
-/*停用*/
-function stop(obj,id){
-    console.log(id);
-	layer.confirm('确认要停用吗？',function(){
-		var submitData = {
-			id : id,
-			status : 0,
-	    };
-	    $.post("{{ url_for('admin.wx_diymenu_edit') }}", submitData, function(res) {
-			if (res.status == 200) {
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="start(this,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-				$(obj).remove();
-				layer.msg('已停用!',{icon: 5,time:1000});
-			}else{
-				layer.msg(res.msg);
-			}
-		}, "json");
-	});
-}
-
-/*启用*/
-function start(obj,id){
-	layer.confirm('确认要启用吗？',function(){
-		var submitData = {
-			id : id,
-			status : 1,
-	    };
-		$.post("{{ url_for('admin.wx_diymenu_edit') }}", submitData, function(res) {
-			if (res.status == 200) {
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="stop(this,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
+/*启动&停用*/
+function is_status(id,type){
+    if(type == true){
+    	var submitData = { id : id, status : 1 };
+    }else{
+    	var submitData = { id : id, status : 0 };
+    }
+	$.post("{{ url_for('admin.wx_diymenu_edit') }}", submitData, function(res) {
+		if (res.status == 200) {
+			if(type == true){
 				layer.msg('已启用!',{icon: 6,time:1000});
 			}else{
-				layer.msg(res.msg);
+				layer.msg('已停用!',{icon: 5,time:1000});
 			}
-		}, "json");
-	});
+		}else{
+			layer.msg(res.msg);
+		}
+	}, "json");
 }
 
-/*删除*/
+/* 删除 */
 function del(obj,id){
 	layer.confirm('确认要删除吗？',function(){
 		var submitData = {
@@ -151,8 +118,8 @@ function del(obj,id){
 	});
 }
 
-//选择删除
-function datadel(){
+/* 全选&删除 */
+function all_del(){
     layer.confirm('确认要删除吗？',function(){
 		var did = document.getElementsByName('did');
 		var value = new Array();
@@ -161,34 +128,23 @@ function datadel(){
 				value.push(did[i].value);
 			}
 		}
-
 		var submitData = {
 			id : value.join(','),
 		}
-
-		$.post("{{ url_for('admin.wx_diymenu_delete') }}", submitData, function(res) {
-			if (res.status == 200) {
-				window.location.reload();
-				layer.msg('已删除!',{icon:1,time:1000});
-			}else{
-				layer.msg(res.msg);
-			}
-		}, "json");
+		if(value.length > 0){
+			$.post("{{ url_for('admin.wx_diymenu_delete') }}", submitData, function(res) {
+				if (res.status == 200) {
+					window.location.reload();
+					layer.msg('已删除!',{icon:1,time:1000});
+				}else{
+					layer.msg(res.msg);
+				}
+			}, "json");
+		}else{
+			layer.msg('请选择删除项!',{icon: 5,time:1000});
+		}
     });
 }
 
-//生成微信菜单
-function addWxMenu(){
-    console.log(999);
-	$.ajax({
-       type: "GET",
-       url: "{{ url_for('admin.wx_add_menu') }}",
-       dataType: "html",
-       success: function(msg){
-           console.log(msg);
-           layer.msg('已生成微信菜单!',{icon: 6,time:1000});
-       }
-    });
-}
 </script>
 {% endblock %}
