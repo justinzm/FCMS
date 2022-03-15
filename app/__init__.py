@@ -7,6 +7,7 @@ from flask_docs import ApiDoc
 from flask_migrate import Migrate
 from app.models.base import db
 from flask_login import LoginManager
+from flask_cors import *
 
 __author__ = 'justin.郑'
 
@@ -20,6 +21,7 @@ cache = Cache(config={'CACHE_TYPE': 'simple'})
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     # 系统设置常量
     app.config.from_object('app.secure')
