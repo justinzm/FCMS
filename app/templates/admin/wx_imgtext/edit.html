@@ -1,149 +1,169 @@
 {% extends "admin/base.html" %}
 
+{% block head %}
+{{ super() }}
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/iCheck/custom.css') }}" />
+<link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='h_admin/css/plugins/webuploader/webuploader.css') }}" />
+{% endblock %}
 {% block content %}
-<article class="page-container">
-	<form class="form form-horizontal" id="form-menu-add" name="form-menu-add">
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 关键词：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="keyword" value="{{ find.keyword }}">
-			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">匹配状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="type" type="radio" id="status-1" value="1" {% if find.type == 1 %} checked="checked" {% endif %}>
-					<label for="status-1">完全匹配</label>
-				</div>
-				<div class="radio-box">
-					<input name="type" type="radio" id="status-2" value="2" {% if find.type == 2 %} checked="checked" {% endif %}>
-					<label for="status-2">模糊匹配</label>
+<div class="ibox float-e-margins">
+	<div class="ibox-content">
+		<form class="form-horizontal" id="form_submit">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">关键词：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="keyword" value="{{ find.keyword }}">
 				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 图文标题：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="title" value="{{ find.title }}">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-10">
+					<div class="radio i-checks">
+						<label><input type="radio" value="1" id="status-3" name="type" {% if find.type == 1 %} checked="checked" {% endif %}><i></i> 完全匹配</label>
+					</div>
+					<div class="radio i-checks">
+						<label><input type="radio" value="2" id="status-4" name="type" {% if find.type == 2 %} checked="checked" {% endif %}><i></i> 模糊匹配</label>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">图文简介：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="intro" cols="" rows="" class="textarea"  placeholder="简介写点什么……" onKeyUp="textarealength(this,100)">{{ find.intro }}</textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">图文标题：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="title" value="{{ find.title }}">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">封面图片：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-thum-container">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">图文摘要：</label>
+				<div class="col-sm-10">
+					<textarea name="intro" cols="" rows="3" class="form-control"  placeholder="摘要写点什么……" onKeyUp="textarealength(this,100)">{{ find.intro }}</textarea>
+					<span class="help-block m-b-none"><em class="textarea-length">0</em>/100</span>
+				</div>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">封面图片：</label>
+				<div class="col-sm-10">
+					<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list">
-						{% if find.img_url %}
+						{% if find.url_img %}
 						<div class="file-item thumbnail">
 							<img src="{{ find.url_img }}" width="100" height="100">
 						</div>
 						{% endif %}
 					</div>
 					<div id="filePicker">修改图片</div>
-					<div id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">删除</div>
+					<div id="btn-star" class="btn btn-sm btn-danger btn_delete">删除</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-1" value="1" {% if find.status == 1 %} checked="checked" {% endif %}>
-					<label for="status-1">启动</label>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-10">
+					<div class="radio i-checks">
+						<label><input type="radio" value="1" id="status-1" name="status" {% if find.status == 1 %} checked="checked" {% endif %}><i></i> 启动</label>
+					</div>
+					<div class="radio i-checks">
+						<label><input type="radio" value="0" id="status-2" name="status" {% if find.status == 0 %} checked="checked" {% endif %}><i></i> 停用</label>
 				</div>
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-2" value="0" {% if find.status == 0 %} checked="checked" {% endif %}>
-					<label for="status-2">停用</label>
+			</div>
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">对外正文链接：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="" name="url" value="{{ find.url }}">
 				</div>
 			</div>
-		</div>
-        <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">对外正文链接：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" name="url" value="{{ find.url or ''}}">
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">图文内容</label>
+				<div class="col-sm-10">
+					<script id="editor" name="content" type="text/plain" style="width:100%;height:400px;"></script>
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">图文内容：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-				<script id="editor" type="text/plain" style="width:100%;height:400px;"></script>
+
+			<div class="hr-line-dashed"></div>
+			<input type="hidden" name="id" value="{{ find.id }}">
+			<div class="form-group">
+				<div class="col-sm-4 col-sm-offset-2">
+					<button class="btn btn-primary" type="submit">提交</button>
+				</div>
 			</div>
-		</div>
-        <input name="id" type="hidden" value="{{ find.id }}">
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;编辑&nbsp;&nbsp;">
-			</div>
-		</div>
-	</form>
-</article>
+		</form>
+	</div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/webuploader/0.1.5/webuploader.css') }}"/>
-<script type="text/javascript" src="{{ url_for('static', filename='lib/webuploader/0.1.5/webuploader.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='lib/webuploader/0.1.5/uploaderImgOne.js') }}"></script>
-
-<script type="text/javascript" src="{{ url_for('static', filename='lib/ueditor/ueditor.config.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='lib/ueditor/ueditor.all.min.js') }}"> </script>
-<script type="text/javascript" src="{{ url_for('static', filename='lib/ueditor/lang/zh-cn/zh-cn.js') }}"></script>
-
+<!-- jQuery icheck plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/iCheck/icheck.min.js') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/validate/messages_zh.min.js') }}"></script>
+<!-- jQuery webuploader plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/webuploader/webuploader.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/webuploader/uploaderImgOne.js') }}"></script>
+<!-- jQuery ueditor plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/ueditor/ueditor.config.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/ueditor/ueditor.all.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/ueditor/lang/zh-cn/zh-cn.js') }}"></script>
+<!-- jQuery laydate plugin javascript-->
+<script type="text/javascript" src="{{ url_for('static', filename='h_admin/js/plugins/layer/laydate/laydate.js') }}"></script>
+<style>
+.thumbnail{ display: inline-block;}
+.btn_delete{ visibility: hidden; width: 76px; height: 26px; margin-left:10px; font-size: 13px }
+</style>
 <script type="text/javascript">
 $(function(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
+	<!-- iCheck -->
+	$('.i-checks').iCheck({
+		checkboxClass: 'icheckbox_square-green',
+		radioClass: 'iradio_square-green',
 	});
 
+	<!-- ueditor -->
 	var ue = UE.getEditor('editor', {
 		serverUrl: "/admin/upload/upload"
 	});
 	ue.addListener("ready", function () {
-        ue.setContent('{{ find.content }}');
+        ue.setContent('{{ find.content | safe }}');
 	});
 
-	//验证判断，并提交
-    $("#form-menu-add").validate({
+	$("#form_submit").validate({
 		rules:{
 			title:{
 				required:true,
-			},
+				minlength:2,
+				maxlength:16
+			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			ajaxSubmitBtn();
+			ajaxSubmit();
 		}
 	});
 });
 
-function ajaxSubmitBtn(){
-	var content = UE.getEditor('editor').getContent();
-	var submitData = {
-	    id          : $('input[name="id"]').val(),
-		title       : $('input[name="title"]').val(),
-		keyword     : $('input[name="keyword"]').val(),
-		url         : $('input[name="url"]').val(),
-		type		: $('input[name="type"]:checked').val(),
-		status      : $('input[name="status"]:checked').val(),
-		intro       : $('textarea[name="intro"]').val(),
-		content   	: content,
-    }
-    if(imgFile){
-		submitData['img_url'] = imgFile.path;
+function ajaxSubmit(){
+	var submitData = $('#form_submit').serialize();
+	if(imgFile){
+		submitData = submitData + "&img_url=" +imgFile.path;
 	}
-    $.post("{{ url_for('admin.wx_imgtext_edit') }}", submitData, function(res) {
+	console.log(submitData);
+	$.post("{{ url_for('admin.wx_imgtext_edit') }}", submitData, function(res) {
 		if (res.status == 200) {
 			window.parent.location.reload();
 			var index = parent.layer.getFrameIndex(window.name);
@@ -153,6 +173,6 @@ function ajaxSubmitBtn(){
 		}
 	}, "json");
 }
-
 </script>
 {% endblock %}
+

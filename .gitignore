@@ -108,3 +108,5 @@ Pipfile.lock
 *.iml
 Pipfile.lock
 favicon.ico
+.DS_Store
+app/static/h_admin/js/.DS_Store

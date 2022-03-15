@@ -1,10 +1,12 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/8/22 0022
+# @Author  : justin.郑 3907721@qq.com
+# @File    : section.py
+# @Desc    : 单元表
 
 from sqlalchemy import Column, Integer, String, Text, Boolean
 from app.models.base import Base
-
-__author__ = 'justin.郑'
 
 
 class Section(Base):

@@ -1,18 +1,17 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-import os
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2020/8/22 0022
+# @Author  : justin.郑 3907721@qq.com
+# @File    : wx_imgtext.py
+# @Desc    : 微信公众号-图文回复表
 
+import os
 from flask import request
 from sqlalchemy import Column, Integer, String, Text, Boolean
 from app.models.base import Base
 
-__author__ = 'justin.郑'
-
 
 class WxImgtext(Base):
-    """
-    微信公众号-图文回复表
-    """
     __tablename__ = Base.prefix+'wx_imgtext'
 
     id = Column(Integer, primary_key=True, autoincrement=True, comment="ID")

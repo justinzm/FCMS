@@ -7,7 +7,7 @@
 
 from flask import Blueprint
 from app.admin import auth_group, login, index, welcome, auth_permission, auth_user, conf, section, category, article, \
-    upload, page, member, wx_diymenu, wx_imgtext, wx_reply, wx_text, param, ad, wx_account, wx_group, wx_push_data, wx_monitor_data, wx_monitor_group
+    upload, page, member, wx_diymenu, wx_imgtext, wx_reply, wx_text, param, ad
 
 
 def create_blueprint_admin():
@@ -32,11 +32,6 @@ def create_blueprint_admin():
     wx_imgtext.api.register(admin_blueprint)
     wx_reply.api.register(admin_blueprint)
     wx_text.api.register(admin_blueprint)
-    wx_account.api.register(admin_blueprint)
-    wx_group.api.register(admin_blueprint)
-    wx_push_data.api.register(admin_blueprint)
-    wx_monitor_data.api.register(admin_blueprint)
-    wx_monitor_group.api.register(admin_blueprint)
 
     return admin_blueprint
 
