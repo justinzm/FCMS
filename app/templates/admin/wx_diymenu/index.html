@@ -19,6 +19,7 @@
 	<div class="ibox-content float-e-margins">
 		<button class="btn btn-danger" type="button"  onclick="all_del()"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
 		<button class="btn btn-success" type="button" onclick="new_win('新建回复文本','add','','')"><i class="fa fa-plus"></i> 新建回复文本</button>
+		<button class="btn btn-primary" type="button" onclick="addWxMenu()"><i class="fa fa-weixin"></i> 生成微信菜单</button>
 	</div>
 	<div class="ibox-content float-e-margins">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -146,5 +147,17 @@ function all_del(){
     });
 }
 
+//生成微信菜单
+function addWxMenu(){
+	$.ajax({
+       type: "GET",
+       url: "{{ url_for('admin.wx_add_menu') }}",
+       dataType: "html",
+       success: function(msg){
+           console.log(msg);
+           layer.msg('已生成微信菜单!',{icon: 6,time:1000});
+       }
+    });
+}
 </script>
 {% endblock %}

@@ -123,7 +123,9 @@ def wx_add_menu():
         "button": list
     }
 
-    res = client.menu.update(doc)
-    # return jsonify({'errcode': res['errcode'], 'errmsg': res['errmsg'], 'status': 200})
-    return '成功'
+    try:
+        res = client.menu.update(doc)
+        return jsonify({'status': 200, 'msg': '成功'})
+    except Exception as e:
+        return jsonify({'msg': str(e), 'status': 400})
 
