@@ -3,10 +3,11 @@
 # @Time    : 2019/4/26 0026
 # @Author  : justin.郑 3907721@qq.com
 # @File    : test.py
-# @Desc    : 
+# @Desc    :
+import os
 
 from flask import request, jsonify, abort, current_app
-from wechatpy import WeChatClient
+from wechatpy import WeChatClient, WeChatPay
 from app.libs.logger import CmsLogger
 from app.models.wx_diymenu import WxDiymenu
 from app.wechat import wechat
@@ -55,3 +56,27 @@ def test_index():
     # return jsonify(doc)
     pass
 
+
+# 微信 现金红包
+@wechat.route('/wechat/redpack')
+def redpack_index():
+    try:
+        appid = 'wx2a109de15e40c66b'
+        api_key = 'O93034XrenxxKpPZmMAq8Aox2K77HuV3'
+        mch_id = '1604159836'
+        mch_cert = os.path.join(current_app.static_folder, 'apiclient_cert.pem')
+        mch_key = os.path.join(current_app.static_folder, 'apiclient_key.pem')
+
+        wechatObj = WeChatPay(appid=appid, api_key=api_key, mch_id=mch_id, mch_cert=mch_cert, mch_key=mch_key)
+
+        res = wechatObj.redpack.send(
+            user_id='oXd4h6etiWALpsIlrnWFM8OwqK5k',
+            total_amount='101',
+            send_name='极橙社',
+            act_name='红包',
+            wishing='红包祝福语',
+            remark='备注')
+        print(res)
+        return jsonify({"msg": str(res), "error_code": 200})
+    except Exception as e:
+        return jsonify({"msg": str(e), "error_code": 400})
