@@ -1,0 +1,16 @@
+flask
+flask_caching
+flask_docs
+flask_cors
+flask_login
+flask_migrate
+pymysql
+wechatpy
+pycryptodome
+
+
+itsdangerous==1.1.0
+
+
+
+

@@ -9,8 +9,9 @@ import time
 from datetime import datetime
 from contextlib import contextmanager
 from flask import current_app
-from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy, BaseQuery
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
 from sqlalchemy import Column, Integer, Boolean
+from sqlalchemy.orm import Query as BaseQuery
 
 
 class SQLAlchemy(_SQLAlchemy):
@@ -58,7 +59,7 @@ class Base(db.Model):
     }
 
     # 设置表名前缀
-    prefix = 'cms_'
+    prefix = 'qy_'
 
     is_delete = Column(Boolean, default=False, comment="是否删除 True为删除")
     create_time = Column(Integer, comment="创建时间")
