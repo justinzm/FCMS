@@ -8,7 +8,7 @@ __author__ = 'justin.郑'
 
 PER_PAGE = 15
 
-VERSION_ADMIN = 'admin_flask_cms 2.0'
+VERSION_ADMIN = 'admin_flask_cms 3.0'
 
 STR_TO_INT = ['status', 'pid', 'sort', 'group_id', 'section_id', 'category_id', 'istop']
 

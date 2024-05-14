@@ -18,10 +18,10 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for club_ad
+-- Table structure for fcms_ad
 -- ----------------------------
-DROP TABLE IF EXISTS `club_ad`;
-CREATE TABLE `club_ad`  (
+DROP TABLE IF EXISTS `fcms_ad`;
+CREATE TABLE `fcms_ad`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -40,10 +40,10 @@ CREATE TABLE `club_ad`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for club_article
+-- Table structure for fcms_article
 -- ----------------------------
-DROP TABLE IF EXISTS `club_article`;
-CREATE TABLE `club_article`  (
+DROP TABLE IF EXISTS `fcms_article`;
+CREATE TABLE `fcms_article`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -73,10 +73,10 @@ CREATE TABLE `club_article`  (
 
 
 -- ----------------------------
--- Table structure for club_auth_group
+-- Table structure for fcms_auth_group
 -- ----------------------------
-DROP TABLE IF EXISTS `club_auth_group`;
-CREATE TABLE `club_auth_group`  (
+DROP TABLE IF EXISTS `fcms_auth_group`;
+CREATE TABLE `fcms_auth_group`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -89,16 +89,16 @@ CREATE TABLE `club_auth_group`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of club_auth_group
+-- Records of fcms_auth_group
 -- ----------------------------
-INSERT INTO `club_auth_group` VALUES (0, 1550215694, 1639474228, NULL, 1, '系统管理员', 1, '1,2,3,4,5,6,7,8,9,15,10,11,12,13,14,16,18,50,51,52,53,54,55,56,57,19,20,23,24,25,21,26,27,28,22,29,30,31,58,59,60,61,45,46,47,48,49');
-INSERT INTO `club_auth_group` VALUES (0, 1550215702, 1639298347, NULL, 2, '普通管理员', 1, '1,2');
+INSERT INTO `fcms_auth_group` VALUES (0, 1550215694, 1639474228, NULL, 1, '系统管理员', 1, '1,2,3,4,5,6,7,8,9,15,10,11,12,13,14,16,18,50,51,52,53,54,55,56,57,19,20,23,24,25,21,26,27,28,22,29,30,31,58,59,60,61,45,46,47,48,49');
+INSERT INTO `fcms_auth_group` VALUES (0, 1550215702, 1639298347, NULL, 2, '普通管理员', 1, '1,2');
 
 -- ----------------------------
--- Table structure for club_auth_permission
+-- Table structure for fcms_auth_permission
 -- ----------------------------
-DROP TABLE IF EXISTS `club_auth_permission`;
-CREATE TABLE `club_auth_permission`  (
+DROP TABLE IF EXISTS `fcms_auth_permission`;
+CREATE TABLE `fcms_auth_permission`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -114,62 +114,62 @@ CREATE TABLE `club_auth_permission`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of club_auth_permission
+-- Records of fcms_auth_permission
 -- ----------------------------
-INSERT INTO `club_auth_permission` VALUES (0, 1550240302, 1639372139, NULL, 1, '', '管理员管理', 1, 'user', 0, 7);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240334, NULL, NULL, 2, '/admin/auth_user/index', '管理员管理', 1, '', 1, 5);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240396, NULL, NULL, 3, '/admin/auth_user/add', '添加管理员', 1, '', 2, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240466, NULL, NULL, 4, '/admin/auth_user/edit', '修改管理员', 1, '', 2, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240489, NULL, NULL, 5, '/admin/auth_user/delete', '删除管理员', 1, '', 2, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240552, NULL, NULL, 6, '/admin/auth_group/index', '权限组管理', 1, '', 1, 3);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240612, NULL, NULL, 7, '/admin/auth_group/add', '添加权限组', 1, '', 6, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240670, NULL, NULL, 8, '/admin/auth_group/edit', '修改权限组', 1, '', 6, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240708, NULL, NULL, 9, '/admin/auth_group/delete', '删除权限组', 1, '', 6, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240884, 1639372178, NULL, 10, '', '站点管理', 1, 'home', 0, 5);
-INSERT INTO `club_auth_permission` VALUES (0, 1550240926, NULL, NULL, 11, '/admin/auth_permission/index', '菜单(权限)管理', 1, '', 10, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550243521, NULL, NULL, 12, '/admin/auth_permission/add', '添加菜单', 1, '', 11, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550243703, NULL, NULL, 13, '/admin/auth_permission/edit', '修改菜单', 1, '', 11, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550243721, NULL, NULL, 14, '/admin/auth_permission/delete', '修改菜单', 1, '', 11, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550390966, 1550392488, NULL, 15, '/admin/auth_group/auth', '权限授权', 1, '', 6, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550392791, 1550395954, NULL, 16, '/admin/conf/index', '站点配置', 1, '', 10, 3);
-INSERT INTO `club_auth_permission` VALUES (1, 1550392845, NULL, 1550395935, 17, '/admin/config/edit', '修改站点配置', 1, '', 16, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550392973, 1639372098, NULL, 18, '', '扩展管理', 1, 'paperclip', 0, 9);
-INSERT INTO `club_auth_permission` VALUES (0, 1550393240, 1639372065, NULL, 19, '', '内容管理', 1, 'file-text', 0, 12);
-INSERT INTO `club_auth_permission` VALUES (0, 1550468986, 1638155211, NULL, 20, '/admin/section/index', '单元管理', 1, '', 19, 5);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469033, 1638155215, NULL, 21, '/admin/category/index', '分类管理', 1, '', 19, 4);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469078, 1639399040, NULL, 22, '/admin/article/index', '文章管理', 1, '', 19, 3);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469141, NULL, NULL, 23, '/admin/section/add', '添加单元', 1, '', 20, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469159, NULL, NULL, 24, '/admin/section/edit', '修改单元', 1, '', 20, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469179, NULL, NULL, 25, '/admin/section/delete', '删除单元', 1, '', 20, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469204, NULL, NULL, 26, '/admin/category/add', '添加分类', 1, '', 21, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469225, NULL, NULL, 27, '/admin/category/edit', '修改分类', 1, '', 21, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550469248, NULL, NULL, 28, '/admin/category/delete', '删除分类', 1, '', 21, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550473786, NULL, NULL, 29, '/admin/article/add', '添加文章', 1, '', 22, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550473804, NULL, NULL, 30, '/admin/article/edit', '修改文章', 1, '', 22, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1550473823, NULL, NULL, 31, '/admin/article/delete', '删除文章', 1, '', 22, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1599104180, 1599104447, NULL, 45, ' ', '用户管理', 1, 'users', 0, 16);
-INSERT INTO `club_auth_permission` VALUES (0, 1599104467, NULL, NULL, 46, '/admin/member/index', '用户管理', 1, NULL, 45, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1599104482, 1599104525, NULL, 47, '/admin/member/add', '添加用户', 1, 'None', 46, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1599104495, NULL, NULL, 48, '/admin/member/edit', '修改用户', 1, NULL, 46, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1599104513, 1639298035, NULL, 49, '/admin/member/delete', '删除用户', 1, NULL, 46, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376473, NULL, NULL, 50, '/admin/param/index', '参数列表', 1, NULL, 18, 5);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376510, NULL, NULL, 51, '/admin/param/add', '添加参数', 1, NULL, 50, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376527, NULL, NULL, 52, '/admin/param/edit', '编辑参数', 1, NULL, 50, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376542, NULL, NULL, 53, '/admin/param/delete', '删除参数', 1, NULL, 50, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376918, NULL, NULL, 54, '/admin/ad/index', '广告管理', 1, NULL, 18, 3);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376934, NULL, NULL, 55, '/admin/ad/add', '添加广告', 1, NULL, 54, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376950, NULL, NULL, 56, '/admin/ad/delete', '删除广告', 1, NULL, 54, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639376968, NULL, NULL, 57, '/admin/ad/edit', '编辑广告', 1, NULL, 54, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639399061, NULL, NULL, 58, '/admin/page/index', '单页管理', 1, NULL, 19, 2);
-INSERT INTO `club_auth_permission` VALUES (0, 1639399130, NULL, NULL, 59, '/admin/page/add', '添加单页', 1, NULL, 58, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639399147, NULL, NULL, 60, '/admin/page/edit', '编辑单页', 1, NULL, 58, 0);
-INSERT INTO `club_auth_permission` VALUES (0, 1639399166, NULL, NULL, 61, '/admin/page/delete', '删除单页', 1, NULL, 58, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240302, 1639372139, NULL, 1, '', '管理员管理', 1, 'user', 0, 7);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240334, NULL, NULL, 2, '/admin/auth_user/index', '管理员管理', 1, '', 1, 5);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240396, NULL, NULL, 3, '/admin/auth_user/add', '添加管理员', 1, '', 2, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240466, NULL, NULL, 4, '/admin/auth_user/edit', '修改管理员', 1, '', 2, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240489, NULL, NULL, 5, '/admin/auth_user/delete', '删除管理员', 1, '', 2, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240552, NULL, NULL, 6, '/admin/auth_group/index', '权限组管理', 1, '', 1, 3);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240612, NULL, NULL, 7, '/admin/auth_group/add', '添加权限组', 1, '', 6, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240670, NULL, NULL, 8, '/admin/auth_group/edit', '修改权限组', 1, '', 6, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240708, NULL, NULL, 9, '/admin/auth_group/delete', '删除权限组', 1, '', 6, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240884, 1639372178, NULL, 10, '', '站点管理', 1, 'home', 0, 5);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550240926, NULL, NULL, 11, '/admin/auth_permission/index', '菜单(权限)管理', 1, '', 10, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550243521, NULL, NULL, 12, '/admin/auth_permission/add', '添加菜单', 1, '', 11, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550243703, NULL, NULL, 13, '/admin/auth_permission/edit', '修改菜单', 1, '', 11, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550243721, NULL, NULL, 14, '/admin/auth_permission/delete', '修改菜单', 1, '', 11, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550390966, 1550392488, NULL, 15, '/admin/auth_group/auth', '权限授权', 1, '', 6, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550392791, 1550395954, NULL, 16, '/admin/conf/index', '站点配置', 1, '', 10, 3);
+INSERT INTO `fcms_auth_permission` VALUES (1, 1550392845, NULL, 1550395935, 17, '/admin/config/edit', '修改站点配置', 1, '', 16, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550392973, 1639372098, NULL, 18, '', '扩展管理', 1, 'paperclip', 0, 9);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550393240, 1639372065, NULL, 19, '', '内容管理', 1, 'file-text', 0, 12);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550468986, 1638155211, NULL, 20, '/admin/section/index', '单元管理', 1, '', 19, 5);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469033, 1638155215, NULL, 21, '/admin/category/index', '分类管理', 1, '', 19, 4);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469078, 1639399040, NULL, 22, '/admin/article/index', '文章管理', 1, '', 19, 3);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469141, NULL, NULL, 23, '/admin/section/add', '添加单元', 1, '', 20, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469159, NULL, NULL, 24, '/admin/section/edit', '修改单元', 1, '', 20, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469179, NULL, NULL, 25, '/admin/section/delete', '删除单元', 1, '', 20, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469204, NULL, NULL, 26, '/admin/category/add', '添加分类', 1, '', 21, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469225, NULL, NULL, 27, '/admin/category/edit', '修改分类', 1, '', 21, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550469248, NULL, NULL, 28, '/admin/category/delete', '删除分类', 1, '', 21, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550473786, NULL, NULL, 29, '/admin/article/add', '添加文章', 1, '', 22, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550473804, NULL, NULL, 30, '/admin/article/edit', '修改文章', 1, '', 22, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1550473823, NULL, NULL, 31, '/admin/article/delete', '删除文章', 1, '', 22, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1599104180, 1599104447, NULL, 45, ' ', '用户管理', 1, 'users', 0, 16);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1599104467, NULL, NULL, 46, '/admin/member/index', '用户管理', 1, NULL, 45, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1599104482, 1599104525, NULL, 47, '/admin/member/add', '添加用户', 1, 'None', 46, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1599104495, NULL, NULL, 48, '/admin/member/edit', '修改用户', 1, NULL, 46, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1599104513, 1639298035, NULL, 49, '/admin/member/delete', '删除用户', 1, NULL, 46, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376473, NULL, NULL, 50, '/admin/param/index', '参数列表', 1, NULL, 18, 5);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376510, NULL, NULL, 51, '/admin/param/add', '添加参数', 1, NULL, 50, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376527, NULL, NULL, 52, '/admin/param/edit', '编辑参数', 1, NULL, 50, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376542, NULL, NULL, 53, '/admin/param/delete', '删除参数', 1, NULL, 50, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376918, NULL, NULL, 54, '/admin/ad/index', '广告管理', 1, NULL, 18, 3);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376934, NULL, NULL, 55, '/admin/ad/add', '添加广告', 1, NULL, 54, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376950, NULL, NULL, 56, '/admin/ad/delete', '删除广告', 1, NULL, 54, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639376968, NULL, NULL, 57, '/admin/ad/edit', '编辑广告', 1, NULL, 54, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639399061, NULL, NULL, 58, '/admin/page/index', '单页管理', 1, NULL, 19, 2);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639399130, NULL, NULL, 59, '/admin/page/add', '添加单页', 1, NULL, 58, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639399147, NULL, NULL, 60, '/admin/page/edit', '编辑单页', 1, NULL, 58, 0);
+INSERT INTO `fcms_auth_permission` VALUES (0, 1639399166, NULL, NULL, 61, '/admin/page/delete', '删除单页', 1, NULL, 58, 0);
 
 -- ----------------------------
--- Table structure for club_auth_user
+-- Table structure for fcms_auth_user
 -- ----------------------------
-DROP TABLE IF EXISTS `club_auth_user`;
-CREATE TABLE `club_auth_user`  (
+DROP TABLE IF EXISTS `fcms_auth_user`;
+CREATE TABLE `fcms_auth_user`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -185,15 +185,15 @@ CREATE TABLE `club_auth_user`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of club_auth_user
+-- Records of fcms_auth_user
 -- ----------------------------
-INSERT INTO `club_auth_user` VALUES (0, 1550217545, 1639373192, NULL, 1, 'admin', 'pbkdf2:sha256:150000$vI60tpUO$02a16ca54d2aa4c0296f00be65a2d3abcfbca48aebebdc41d9f66cc635149a13', 1, 1);
+INSERT INTO `fcms_auth_user` VALUES (0, 1550217545, 1639373192, NULL, 1, 'admin', 'pbkdf2:sha256:150000$vI60tpUO$02a16ca54d2aa4c0296f00be65a2d3abcfbca48aebebdc41d9f66cc635149a13', 1, 1);
 
 -- ----------------------------
--- Table structure for club_category
+-- Table structure for fcms_category
 -- ----------------------------
-DROP TABLE IF EXISTS `club_category`;
-CREATE TABLE `club_category`  (
+DROP TABLE IF EXISTS `fcms_category`;
+CREATE TABLE `fcms_category`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -211,10 +211,10 @@ CREATE TABLE `club_category`  (
 
 
 -- ----------------------------
--- Table structure for club_config
+-- Table structure for fcms_config
 -- ----------------------------
-DROP TABLE IF EXISTS `club_config`;
-CREATE TABLE `club_config`  (
+DROP TABLE IF EXISTS `fcms_config`;
+CREATE TABLE `fcms_config`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -232,15 +232,15 @@ CREATE TABLE `club_config`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of club_config
+-- Records of fcms_config
 -- ----------------------------
-INSERT INTO `club_config` VALUES (0, NULL, 1638172395, NULL, 1, 'FCMS123', 'FCMS32', 'FCMS123', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `fcms_config` VALUES (0, NULL, 1638172395, NULL, 1, 'FCMS123', 'FCMS32', 'FCMS123', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
--- Table structure for club_member
+-- Table structure for fcms_member
 -- ----------------------------
-DROP TABLE IF EXISTS `club_member`;
-CREATE TABLE `club_member`  (
+DROP TABLE IF EXISTS `fcms_member`;
+CREATE TABLE `fcms_member`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -264,15 +264,15 @@ CREATE TABLE `club_member`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of club_member
+-- Records of fcms_member
 -- ----------------------------
-INSERT INTO `club_member` VALUES (0, 1639473273, 1640223543, NULL, 1, '颠三倒四12132', '13681719001', NULL, NULL, 'b39d718f8787d7bff814664c29cd1f57', '7ae14bd2f51daef0f5f415c6716b2a78fafc88d8bfb27f001a9fd4d634d93ae3', 1, 'pbkdf2:sha256:150000$DJOpDapP$996afc2bc88037a23a342fc3ffca2b4f92851d0855116f641becc967c4bc0ce2', 1, 0, NULL, 1, NULL, NULL);
+INSERT INTO `fcms_member` VALUES (0, 1639473273, 1640223543, NULL, 1, '颠三倒四12132', '13681719001', NULL, NULL, 'b39d718f8787d7bff814664c29cd1f57', '7ae14bd2f51daef0f5f415c6716b2a78fafc88d8bfb27f001a9fd4d634d93ae3', 1, 'pbkdf2:sha256:150000$DJOpDapP$996afc2bc88037a23a342fc3ffca2b4f92851d0855116f641becc967c4bc0ce2', 1, 0, NULL, 1, NULL, NULL);
 
 -- ----------------------------
--- Table structure for club_page
+-- Table structure for fcms_page
 -- ----------------------------
-DROP TABLE IF EXISTS `club_page`;
-CREATE TABLE `club_page`  (
+DROP TABLE IF EXISTS `fcms_page`;
+CREATE TABLE `fcms_page`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -291,10 +291,10 @@ CREATE TABLE `club_page`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for club_param
+-- Table structure for fcms_param
 -- ----------------------------
-DROP TABLE IF EXISTS `club_param`;
-CREATE TABLE `club_param`  (
+DROP TABLE IF EXISTS `fcms_param`;
+CREATE TABLE `fcms_param`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',
@@ -310,10 +310,10 @@ CREATE TABLE `club_param`  (
 
 
 -- ----------------------------
--- Table structure for club_section
+-- Table structure for fcms_section
 -- ----------------------------
-DROP TABLE IF EXISTS `club_section`;
-CREATE TABLE `club_section`  (
+DROP TABLE IF EXISTS `fcms_section`;
+CREATE TABLE `fcms_section`  (
   `is_delete` tinyint(1) NULL DEFAULT NULL COMMENT '是否删除 True为删除',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) NULL DEFAULT NULL COMMENT '修改时间',

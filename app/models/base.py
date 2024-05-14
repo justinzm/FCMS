@@ -59,7 +59,7 @@ class Base(db.Model):
     }
 
     # 设置表名前缀
-    prefix = 'qy_'
+    prefix = 'fcms_'
 
     is_delete = Column(Boolean, default=False, comment="是否删除 True为删除")
     create_time = Column(Integer, comment="创建时间")
