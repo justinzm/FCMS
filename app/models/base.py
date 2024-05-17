@@ -3,7 +3,7 @@
 # @Time    : 2020/10/27 0027
 # @Author  : justin.郑 3907721@qq.com
 # @File    : base.py
-# @Desc    : 基类
+# @Desc    : 模型基类
 
 import time
 from datetime import datetime

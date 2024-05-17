@@ -3,7 +3,7 @@
 # @Time    : 2020/8/25 0025
 # @Author  : justin.郑 3907721@qq.com
 # @File    : base_form.py
-# @Desc    : 基类
+# @Desc    : Form验证基类
 
 from flask import request
 from wtforms import Form

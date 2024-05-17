@@ -25,7 +25,7 @@ def framework_error(e):
     if isinstance(e, HTTPException):
         code = e.code
         msg = e.description
-        error_code = 4007
+        error_code = 1007
         return APIException(msg, code, error_code)
     else:
         # 调试模式
