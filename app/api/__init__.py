@@ -16,24 +16,24 @@ from app.api import token
 from app.api import test
 
 
-# 捕捉全局异常
-@api.errorhandler(Exception)
-def framework_error(e):
-    # print(e)
-    if isinstance(e, APIException):
-        return e
-    if isinstance(e, HTTPException):
-        code = e.code
-        msg = e.description
-        error_code = 1007
-        return APIException(msg, code, error_code)
-    else:
-        # 调试模式
-        # log
-        if not current_app.config['DEBUG']:
-            return ServerException()
-        else:
-            raise e
+# # 捕捉全局异常
+# @api.errorhandler(Exception)
+# def framework_error(e):
+#     # print(e)
+#     if isinstance(e, APIException):
+#         return e
+#     if isinstance(e, HTTPException):
+#         code = e.code
+#         msg = e.description
+#         error_code = 1007
+#         return APIException(msg, code, error_code)
+#     else:
+#         # 调试模式
+#         # log
+#         if not current_app.config['DEBUG']:
+#             return ServerException()
+#         else:
+#             raise e
 
 """
 

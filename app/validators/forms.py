@@ -13,7 +13,7 @@ from app.validators.base_form import BaseForm
 
 class StockForm(BaseForm):
     code = StringField(validators=[DataRequired(message="不许为空"), length(min=6, message="请填写正确股票代码")])
-    date = StringField()
+    date = StringField(validators=[DataRequired(message="日期不许为空")])
 
     def validate_date(self, field):
         if field.data != None:

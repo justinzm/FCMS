@@ -11,6 +11,7 @@ from app.libs.error import APIException
 from app.libs.error_code import Success
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
+from app.validators.forms import StockForm
 
 api = Redprint('user')
 @api.route('/user_get')
@@ -19,5 +20,5 @@ def v1_get():
 
 @api.route('/user_post', methods=['POST'])
 def v1_post():
-    data = request.form
+    form=StockForm().validate_for_api()
     return Success()
