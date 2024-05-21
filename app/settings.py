@@ -14,4 +14,5 @@ STR_TO_INT = ['status', 'pid', 'sort', 'group_id', 'section_id', 'category_id', 
 
 DATE_TO_INT = ['start_time']
 
+# 生成令牌有效期
 TOKEN_EXPIRATION = 2 * 3600

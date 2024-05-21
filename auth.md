@@ -13,7 +13,7 @@ app_secret = 0d73a528bfea588f402333cbe5e5f65fe72893ac25b7342ffedb55135ca603f4
 ```
 {"app_key":"a4a3713c6f664c46f95a4c91dda28fd1", "app_secret":"0d73a528bfea588f402333cbe5e5f65fe72893ac25b7342ffedb55135ca603f4"}
 ```
-* 以POST方式raw类型 JSON提交到 http://127.0.0.1/api/v1/get_token 地址上获取token  
+* 以POST方式raw类型 JSON提交到 http://127.0.0.1/api/get_token 地址上获取token  
 http://127.0.0.1 地址 根据具体项目来定
 
 * token有效期为7200秒
@@ -28,5 +28,5 @@ http://127.0.0.1 地址 根据具体项目来定
 那么请求头中的参数名为Authorization，参数值就是字符串basic ZXlKaGJHY2lPaUpJVX……
 
 至此，所有的准备工作都做完了，下面就可以发起接口调用了,比如：  
-http://127.0.0.1:5000/api/v1/test  
+http://127.0.0.1:5000/api/test  
 重要提醒：请求头中要加上token参数，否则验证不通过，视为无效请求。

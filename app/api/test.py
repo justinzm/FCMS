@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+1#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2020/6/19 0019
 # @Author  : justin.郑 3907721@qq.com
@@ -7,10 +7,9 @@
 
 from flask import request, jsonify, g
 from app import cache
-from app.api import api
 from app.libs.token_auth import auth
 import datetime
-
+from app.api import api
 
 # @api.route('/api/v1/auth', methods=['GET'])
 # def api_auth():
@@ -58,16 +57,14 @@ import datetime
 #     pass
 
 
-@api.route('/api/v1/test', methods=['GET'])
+@api.route('/api/test')
 @auth.login_required
 def api_test():
     """ 测试接口"""
-    if request.method == 'GET':
-        uid = g.member.uid
-        return jsonify({"msg": "ok", "data": "测试", "member_id": uid, "code": 0})
+    return "123"
  
 
-@api.route('/api/v1/cache', methods=['GET'])
+@api.route('/cache', methods=['GET'])
 @cache.cached(timeout=50)
 def api_test_cache():
     time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')

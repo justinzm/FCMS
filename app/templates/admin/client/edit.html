@@ -105,7 +105,7 @@ $(function(){
 
 function ajaxSubmit(){
 	var submitData = $('#form_submit').serialize();
-    $.post("{{ url_for('admin.member_edit') }}", submitData, function(res) {
+    $.post("{{ url_for('admin.client_edit') }}", submitData, function(res) {
 		if (res.status == 200) {
 			window.parent.location.reload();
 			var index = parent.layer.getFrameIndex(window.name);

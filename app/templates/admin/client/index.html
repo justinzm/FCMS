@@ -18,7 +18,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
 	<div class="ibox-content float-e-margins">
 		<button class="btn btn-danger" type="button"  onclick="all_del()"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
-		<button class="btn btn-success" type="button" onclick="new_win('新建用户','add','','')"><i class="fa fa-plus"></i> 新建用户</button>
+		<button class="btn btn-success" type="button" onclick="new_win('新建客户端','add','','')"><i class="fa fa-plus"></i> 新建客户端</button>
 	</div>
 	<div class="ibox-content float-e-margins">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -90,7 +90,7 @@ function is_status(id,type){
     }else{
     	var submitData = { id : id, status : 0 };
     }
-	$.post("{{ url_for('admin.member_edit') }}", submitData, function(res) {
+	$.post("{{ url_for('admin.client_edit') }}", submitData, function(res) {
 		if (res.status == 200) {
 			if(type == true){
 				layer.msg('已启用!',{icon: 6,time:1000});
@@ -109,7 +109,7 @@ function del(obj,id){
 		var submitData = {
 			id : id,
 	    }
-	    $.post("{{ url_for('admin.member_delete') }}", submitData, function(res) {
+	    $.post("{{ url_for('admin.client_delete') }}", submitData, function(res) {
 			if (res.status == 200) {
 				$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
@@ -134,7 +134,7 @@ function all_del(){
 			id : value.join(','),
 		}
 		if(value.length > 0){
-			$.post("{{ url_for('admin.member_delete') }}", submitData, function(res) {
+			$.post("{{ url_for('admin.client_delete') }}", submitData, function(res) {
 				if (res.status == 200) {
 					window.location.reload();
 					layer.msg('已删除!',{icon:1,time:1000});

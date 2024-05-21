@@ -13,33 +13,34 @@ from app.libs.error_code import AuthFailed, Forbidden
 from app.libs.scope import is_in_scope
 
 auth = HTTPBasicAuth()
-Member = namedtuple("Member", ["uid", "scope"])
+Client = namedtuple("Client", ["uid", "scope"])
 
 
 @auth.verify_password
 def verify_password(token, password):
-    member_info = verify_auth_token(token)
-    if not member_info:
+    client_info = verify_auth_token(token)
+    if not client_info:
         return False
     else:
-        g.member = member_info
+        g.client = client_info
         return True
 
 
+# 验证token的合法性
 def verify_auth_token(token):
     s = Serializer(current_app.config['SECRET_KEY'])
     try:
         data = s.loads(token)
     except BadSignature:
-        raise AuthFailed(msg="token is invalid", error_code=4002)
+        raise AuthFailed(msg="token无效", error_code=4002)
     except SignatureExpired:
-        raise AuthFailed(msg="token is expired", error_code=4003)
+        raise AuthFailed(msg="token已过期", error_code=4003)
 
     # request 视图函数
     allow = is_in_scope(data['scope'], request.endpoint)
     if not allow:
         raise Forbidden()
-    return Member(data['uid'], data['scope'])
+    return Client(data['uid'], data['scope'])
 
 
 # @auth.verify_password

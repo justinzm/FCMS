@@ -120,7 +120,7 @@ function ajaxSubmit(){
 		layer.msg('两次输入密码不同!',{icon:2,time:1000});
 	}
 	var submitData = $('#form_submit').serialize();
-    $.post("{{ url_for('admin.member_add') }}", submitData, function(res) {
+    $.post("{{ url_for('admin.client_add') }}", submitData, function(res) {
 		if (res.status == 200) {
 			window.parent.location.reload();
 			var index = parent.layer.getFrameIndex(window.name);

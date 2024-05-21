@@ -13,7 +13,7 @@ from app.validators.base_form import BaseForm
 
 class StockForm(BaseForm):
     code = StringField(validators=[DataRequired(message="不许为空"), length(min=6, message="请填写正确股票代码")])
-    date = StringField(validators=[DataRequired(message="日期不许为空")])
+    date = StringField()
 
     def validate_date(self, field):
         if field.data != None:
@@ -24,20 +24,23 @@ class StockForm(BaseForm):
 
 
 class MemberForm(BaseForm):
-    # account = StringField(validators=[DataRequired(message='不允许为空'), length(
-    #     min=5, max=32
-    # )])
-    # secret = StringField()
-    app_key = StringField()
-    app_secret = StringField()
-    # type = IntegerField(validators=[DataRequired()])
-    #
-    # def validate_type(self, value):
-    #     try:
-    #         client = MemberTypeEnum(value.data)
-    #     except ValueError as e:
-    #         raise e
-    #     self.type.data = client
+    account = StringField(validators=[DataRequired(message='不允许为空'), length(
+        min=5, max=32
+    )])
+    secret = StringField()
+    type = IntegerField(validators=[DataRequired()])
+
+    def validate_type(self, value):
+        try:
+            client = MemberTypeEnum(value.data)
+        except ValueError as e:
+            raise e
+        self.type.data = client
+
+
+class ClientForm(BaseForm):
+    app_key = StringField(validators=[DataRequired()])
+    app_secret = StringField(validators=[DataRequired()])
 
 
 class LoginForm(BaseForm):

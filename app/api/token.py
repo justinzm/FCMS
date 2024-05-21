@@ -10,12 +10,12 @@ from flask import jsonify, current_app
 from app.api import api
 from app.libs.enums import MemberTypeEnum
 from app.libs.error_code import AuthFailed
-from app.models.member import Member
-from app.validators.forms import MemberForm, TokenForm
+from app.models.client import Client
+from app.validators.forms import ClientForm, TokenForm
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
 
 
-@api.route('/api/v1/get_token', methods=['POST'])
+@api.route('/api/get_token', methods=['POST'])
 def get_token():
     """ 获取Token
     @@@
@@ -28,22 +28,22 @@ def get_token():
 
     #### 返回 json
 
-    > { "token": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTU5OTEyNDA2MiwiZXhwIjoxNTk5MTMxMjYyfQ.eyJ1aWQiOjUsInNjb3BlIjoiTWVtYmVyU2NvcGUifQ.Y1DV9jRO7BajErkyqVws3vhXer-iEPclKNatn7b1UguYDjYsqmIbN0zZGVxXXjGBq5FiOdPF84A3XzMwezzKdg" }
+    > { "token": "eyJhbGciOiJIUzUxMiIsImlhdCI6MTU5OTEyNDA2MiwiZXhwIjoxNTk5MTMxM……" }
 
     #### 备注
     - POST Raw JSON 方式提交
     - http://127.0.0.1:5000/api/v1/get_token
     @@@
     """
-    form = MemberForm().validate_for_api()
-    identity = Member.verify(form.app_key.data, form.app_secret.data)
+    form = ClientForm().validate_for_api()
+    identity = Client.verify(form.app_key.data, form.app_secret.data)
     # 生成令牌
     expiration = current_app.config['TOKEN_EXPIRATION']
     token = generate_auth_token(identity['uid'], identity['scope'], expiration)
     return jsonify({"token": token.decode('ascii')}), 201
 
 
-@api.route('/api/v1/get_token_info', methods=['POST'])
+@api.route('/api/get_token_info', methods=['POST'])
 def get_token_info():
     """获取令牌信息
     @@@

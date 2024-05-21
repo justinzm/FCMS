@@ -6,7 +6,7 @@ __author__ = 'justin.郑'
 机密信息 不上传git
 """
 
-DEBUG = False
+DEBUG = True
 
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:justin123@localhost:3306/fcms'
 

@@ -4,15 +4,7 @@
 # @Author  : justin.郑 3907721@qq.com
 # @File    : error_code.py
 # @Desc    :
-
-
 from app.libs.error import APIException
-
-
-class ParameterException(APIException):
-    code = 400
-    msg = 'invalid parameter'
-    error_code = 1000
 
 
 class Success(APIException):
@@ -25,6 +17,12 @@ class DeleteSuccess(APIException):
     code = 202
     msg = '删除成功'
     error_code = 1
+
+
+class ParameterException(APIException):
+    code = 400
+    msg = 'invalid parameter'
+    error_code = 4000
 
 
 class ServerException(APIException):

@@ -3,7 +3,7 @@
 # @Time    : 2020/8/16 0016
 # @Author  : justin.郑 3907721@qq.com
 # @File    : client.py
-# @Desc    : 会员管理库
+# @Desc    : 客户端库
 
 import secrets
 from sqlalchemy import Column, Integer, String, Boolean, SmallInteger
@@ -12,8 +12,8 @@ from app.models.base import Base
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class Member(Base):
-    __tablename__ = Base.prefix+'member'
+class Client(Base):
+    __tablename__ = Base.prefix+'client'
 
     id = Column(Integer, primary_key=True, autoincrement=True, comment="ID")
     nickname = Column(String(30), comment="昵称")
@@ -60,19 +60,19 @@ class Member(Base):
 
     @classmethod
     def all(cls):
-        return Member.query.filter_by().all()
+        return Client.query.filter_by().all()
 
     @classmethod
     def count(cls):
-        return Member.query.filter_by().count()
+        return Client.query.filter_by().count()
 
     @classmethod
     def by_id(cls, id):
-        return Member.query.filter_by(id=id).first()
+        return Client.query.filter_by(id=id).first()
  
     @staticmethod
     def verify_email(email, password):
-        find = Member.query.filter_by(email=email, status=1).first()
+        find = Client.query.filter_by(email=email, status=1).first()
         if not find:
             raise NotFound(msg="client not found")
         if not find.check_password(password):
@@ -82,7 +82,7 @@ class Member(Base):
 
     @staticmethod
     def verify_mobile(mobile, password):
-        find = Member.query.filter_by(mobile=mobile, status=1).first()
+        find = Client.query.filter_by(mobile=mobile, status=1).first()
         if not find:
             raise NotFound(msg="client not found")
         if not find.check_password(password):
@@ -92,7 +92,7 @@ class Member(Base):
 
     @staticmethod
     def verify(app_key, app_secret):
-        find = Member.query.filter_by(_app_key=app_key, _app_secret=app_secret, status=1).first()
+        find = Client.query.filter_by(_app_key=app_key, _app_secret=app_secret, status=1).first()
         if not find:
             raise NotFound(msg="client not found")
         scope = "AdminScope" if find.auth == 2 else "MemberScope"

@@ -54,14 +54,12 @@ def create_app():
 
 def register_blueprint(app):
     from app.admin import create_blueprint_admin
-    from app.api.v1 import create_blueprint_api_v1
+    from app.api import api
     from app.home import home
     from app.wechat import wechat
-    # from app.api import api
 
     app.register_blueprint(create_blueprint_admin(), url_prefix="/admin")
-    app.register_blueprint(create_blueprint_api_v1(), url_prefix="/api/v1")
     app.register_blueprint(home)
     app.register_blueprint(wechat)
-    # app.register_blueprint(api)
+    app.register_blueprint(api)
 
