@@ -7,7 +7,7 @@
 
 from flask import render_template, request, jsonify, current_app
 from wechatpy import WeChatClient
-from app.libs.logger import CmsLogger
+from app.libs.logger import logger
 from app.libs.redprint import Redprint
 from app.libs.role import role_required
 from app.libs.tools import ArrayLevel

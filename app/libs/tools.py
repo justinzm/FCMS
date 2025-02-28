@@ -7,7 +7,7 @@
 
 from flask import request
 from flask_login import current_user
-from app.libs.logger import CmsLogger
+from app.libs.logger import logger
 
 
 class ArrayLevel:
@@ -53,10 +53,10 @@ def array_children(array, pid):
 # 日志
 def logger_info(message=None):
     tmps = 'admin_id：%s username：%s path：%s message：%s' % (current_user.id, current_user.username, request.path, message)
-    CmsLogger('info').info(message=tmps)
+    logger.info(tmps)
 
 
 def logger_error(message=None):
     tmps = 'admin_id：%s username：%s path：%s err：%s' % (current_user.id, current_user.username, request.path, message)
-    CmsLogger('error').error(message=tmps)
+    logger.error(tmps)
 

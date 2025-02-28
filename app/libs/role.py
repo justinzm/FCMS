@@ -9,7 +9,7 @@ import functools
 from flask import request
 from flask_login import current_user
 from app.libs.error_code import AuthFailed
-from app.libs.logger import CmsLogger
+from app.libs.logger import logger
 
 
 def role_required():
@@ -33,7 +33,7 @@ def logger(tmp=""):
         def wrapper(*args, **kw):
             if request.method == 'POST':
                 tmps = '管理员ID：%s 账号：%s %s' % (current_user.id, current_user.username, tmp)
-                CmsLogger('info').info(message=tmps)
+                logger.info(tmps)
             return func(*args, **kw)
         return wrapper
     return decorator

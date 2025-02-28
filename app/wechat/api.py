@@ -3,7 +3,7 @@
 
 import os
 from flask import request, jsonify, abort
-from app.libs.logger import CmsLogger
+from app.libs.logger import logger
 from app.models.wx_imgtext import WxImgtext
 from app.models.wx_reply import WxReply
 from app.models.wx_text import WxText

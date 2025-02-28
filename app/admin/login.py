@@ -7,7 +7,6 @@
 
 from flask import render_template, request, redirect, url_for, jsonify, current_app
 from flask_login import login_user, logout_user, current_user
-from app.libs.logger import CmsLogger
 from app.libs.redprint import Redprint
 from app.libs.tools import logger_info
 from app.models.auth_user import AuthUser
@@ -30,7 +29,7 @@ def login():
             # if not next or not next.startswith('/'):
             #     next = url_for('admin.index')
             # return redirect(next)
-            # CmsLogger('info').info('ID：%s 账号：%s 登录系统' % (user_find.id, user_find.username))
+            # logger.info('ID：%s 账号：%s 登录系统' % (user_find.id, user_find.username))
             logger_info("登录系统")
             return jsonify({"status": 200})
         else:
@@ -50,7 +49,7 @@ def logout():
 
 @api.route('/test')
 def test():
-    # CmsLogger('info').info('测试logger')
+    # logger.info('测试logger')
     logger_info("测试logger")
     return 'abc'
 
